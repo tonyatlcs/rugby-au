@@ -2,7 +2,7 @@ import { SiteThemeModel } from "@/models/site-theme.model";
 import { modelOptions, prop } from "@typegoose/typegoose";
 import { randomUUID } from "node:crypto";
 
-const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const siteKeyRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 @modelOptions({
   schemaOptions: {
@@ -35,9 +35,9 @@ export class SiteModel {
     required: true,
     trim: true,
     lowercase: true,
-    match: slugRegex,
+    match: siteKeyRegex,
   })
-  slug!: string;
+  siteKey!: string;
 
   @prop({
     type: String,

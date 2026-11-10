@@ -31,7 +31,8 @@
     "fastify": "^5.12.8",
     "migrate-mongo": "^14.0.7",
     "mongodb": "^7.5.0",
-    "mongoose": "~9.9.5"
+    "mongoose": "~9.9.5",
+    "typebox": "^1.4.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
