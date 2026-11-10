@@ -1,0 +1,76 @@
+:root {
+  --background: #ffffff;
+
+  /* Font types */
+  --font-primary: "Poppins", sans-serif;
+
+  /* Font weights */
+  --font-weight-bold: 700;
+  --font-weight-semibold: 600;
+  --font-weight-normal: 400;
+  --font-weight-light: 100;
+
+  /* Spacings */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-10: 10px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-36: 36px;
+  --spacing-40: 40px;
+  --spacing-44: 44px;
+
+  /* Border Radius */
+  --radius-4: 4px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-24: 24px;
+
+  /* Primary colors */
+  --color-primary-100: #e5defd;
+  --color-primary-200: #cbbefb;
+  --color-primary-300: #b09df9;
+  --color-primary-400: #967df7;
+  --color-primary-500: #7c5cf5;
+  --color-primary-600: #634ac4;
+  --color-primary-700: #4a3793;
+  --color-primary-800: #322562;
+  --color-primary-900: #191231;
+
+  /* Greyscale colors */
+  --color-greyscale-0: #ffffff;
+  --color-greyscale-100: #e6e6e6;
+  --color-greyscale-200: #cccccc;
+  --color-greyscale-300: #b3b3b3;
+  --color-greyscale-400: #999999;
+  --color-greyscale-500: #808080;
+  --color-greyscale-600: #666666;
+  --color-greyscale-700: #4d4d4d;
+  --color-greyscale-800: #333333;
+  --color-greyscale-900: #1a1a1a;
+
+  /* Success colors */
+  --color-success-100: #cff1e6;
+  --color-success-200: #9fe3cd;
+  --color-success-300: #70d5b3;
+  --color-success-400: #40c79a;
+  --color-success-500: #10b981;
+  --color-success-600: #0d9467;
+  --color-success-700: #0a6f4d;
+  --color-success-800: #064a34;
+  --color-success-900: #03251a;
+
+  /* Alert colors */
+  --color-alert-100: #fcdada;
+  --color-alert-200: #f9b4b4;
+  --color-alert-300: #f58f8f;
+  --color-alert-400: #f26969;
+  --color-alert-500: #ef4444;
+  --color-alert-600: #bf3636;
+  --color-alert-700: #8f2929;
+  --color-alert-800: #601b1b;
+  --color-alert-900: #300e0e;
+}

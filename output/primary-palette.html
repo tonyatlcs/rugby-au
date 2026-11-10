@@ -1,0 +1,32 @@
+<style>
+  #rugby-primary-palette .swatches {
+    display: grid;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    gap: calc(var(--font-size-base) * 0.5);
+    color: var(--foreground);
+  }
+  #rugby-primary-palette .swatch {
+    height: 72px;
+    margin-bottom: calc(var(--font-size-base) * 0.5);
+  }
+  #rugby-primary-palette code { color: var(--foreground); }
+  @media (max-width: 620px) {
+    #rugby-primary-palette .swatches {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      row-gap: var(--font-size-base);
+    }
+  }
+</style>
+<div id="rugby-primary-palette" aria-label="Primary purple palette: four lighter shades, base 500, and four darker shades">
+  <div class="swatches">
+    <div><div class="swatch" style="background: #E5DEFD" aria-hidden="true"></div><div>100</div><code class="text-small">#E5DEFD</code></div>
+    <div><div class="swatch" style="background: #CBBEFB" aria-hidden="true"></div><div>200</div><code class="text-small">#CBBEFB</code></div>
+    <div><div class="swatch" style="background: #B09DF9" aria-hidden="true"></div><div>300</div><code class="text-small">#B09DF9</code></div>
+    <div><div class="swatch" style="background: #967DF7" aria-hidden="true"></div><div>400</div><code class="text-small">#967DF7</code></div>
+    <div><div class="swatch" style="background: #7C5CF5" aria-hidden="true"></div><div>500 · Base</div><code class="text-small">#7C5CF5</code></div>
+    <div><div class="swatch" style="background: #634AC4" aria-hidden="true"></div><div>600</div><code class="text-small">#634AC4</code></div>
+    <div><div class="swatch" style="background: #4A3793" aria-hidden="true"></div><div>700</div><code class="text-small">#4A3793</code></div>
+    <div><div class="swatch" style="background: #322562" aria-hidden="true"></div><div>800</div><code class="text-small">#322562</code></div>
+    <div><div class="swatch" style="background: #191231" aria-hidden="true"></div><div>900</div><code class="text-small">#191231</code></div>
+  </div>
+</div>

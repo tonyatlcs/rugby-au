@@ -1,7 +1,4 @@
 @use "./reset";
-
-body {
-  background: #fff;
-  color: #171717;
-  font-family: system-ui, sans-serif;
-}
+@use "./core-variables";
+@use "./basic-styles";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");

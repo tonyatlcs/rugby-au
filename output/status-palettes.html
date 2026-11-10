@@ -1,0 +1,51 @@
+<style>
+  #rugby-status-palettes { color: var(--foreground); }
+  #rugby-status-palettes h3 { margin-bottom: calc(var(--font-size-base) * 0.5); }
+  #rugby-status-palettes section + section { margin-top: calc(var(--font-size-base) * 1.5); }
+  #rugby-status-palettes .swatches {
+    display: grid;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    gap: calc(var(--font-size-base) * 0.5);
+  }
+  #rugby-status-palettes .swatch {
+    height: 72px;
+    margin-bottom: calc(var(--font-size-base) * 0.5);
+  }
+  #rugby-status-palettes code { color: var(--foreground); }
+  @media (max-width: 620px) {
+    #rugby-status-palettes .swatches {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      row-gap: var(--font-size-base);
+    }
+  }
+</style>
+<div id="rugby-status-palettes" aria-label="Success and alert palettes, each with four lighter shades, base 500, and four darker shades">
+  <section aria-labelledby="rugby-success-heading">
+    <h3 id="rugby-success-heading">Success</h3>
+    <div class="swatches">
+      <div><div class="swatch" style="background: #CFF1E6" aria-hidden="true"></div><div>100</div><code class="text-small">#CFF1E6</code></div>
+      <div><div class="swatch" style="background: #9FE3CD" aria-hidden="true"></div><div>200</div><code class="text-small">#9FE3CD</code></div>
+      <div><div class="swatch" style="background: #70D5B3" aria-hidden="true"></div><div>300</div><code class="text-small">#70D5B3</code></div>
+      <div><div class="swatch" style="background: #40C79A" aria-hidden="true"></div><div>400</div><code class="text-small">#40C79A</code></div>
+      <div><div class="swatch" style="background: #10B981" aria-hidden="true"></div><div>500 · Base</div><code class="text-small">#10B981</code></div>
+      <div><div class="swatch" style="background: #0D9467" aria-hidden="true"></div><div>600</div><code class="text-small">#0D9467</code></div>
+      <div><div class="swatch" style="background: #0A6F4D" aria-hidden="true"></div><div>700</div><code class="text-small">#0A6F4D</code></div>
+      <div><div class="swatch" style="background: #064A34" aria-hidden="true"></div><div>800</div><code class="text-small">#064A34</code></div>
+      <div><div class="swatch" style="background: #03251A" aria-hidden="true"></div><div>900</div><code class="text-small">#03251A</code></div>
+    </div>
+  </section>
+  <section aria-labelledby="rugby-alert-heading">
+    <h3 id="rugby-alert-heading">Alert</h3>
+    <div class="swatches">
+      <div><div class="swatch" style="background: #FCDADA" aria-hidden="true"></div><div>100</div><code class="text-small">#FCDADA</code></div>
+      <div><div class="swatch" style="background: #F9B4B4" aria-hidden="true"></div><div>200</div><code class="text-small">#F9B4B4</code></div>
+      <div><div class="swatch" style="background: #F58F8F" aria-hidden="true"></div><div>300</div><code class="text-small">#F58F8F</code></div>
+      <div><div class="swatch" style="background: #F26969" aria-hidden="true"></div><div>400</div><code class="text-small">#F26969</code></div>
+      <div><div class="swatch" style="background: #EF4444" aria-hidden="true"></div><div>500 · Base</div><code class="text-small">#EF4444</code></div>
+      <div><div class="swatch" style="background: #BF3636" aria-hidden="true"></div><div>600</div><code class="text-small">#BF3636</code></div>
+      <div><div class="swatch" style="background: #8F2929" aria-hidden="true"></div><div>700</div><code class="text-small">#8F2929</code></div>
+      <div><div class="swatch" style="background: #601B1B" aria-hidden="true"></div><div>800</div><code class="text-small">#601B1B</code></div>
+      <div><div class="swatch" style="background: #300E0E" aria-hidden="true"></div><div>900</div><code class="text-small">#300E0E</code></div>
+    </div>
+  </section>
+</div>

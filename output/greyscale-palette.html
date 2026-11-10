@@ -1,0 +1,32 @@
+<style>
+  #rugby-greyscale-palette .swatches {
+    display: grid;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    gap: calc(var(--font-size-base) * 0.5);
+    color: var(--foreground);
+  }
+  #rugby-greyscale-palette .swatch {
+    height: 72px;
+    margin-bottom: calc(var(--font-size-base) * 0.5);
+  }
+  #rugby-greyscale-palette code { color: var(--foreground); }
+  @media (max-width: 620px) {
+    #rugby-greyscale-palette .swatches {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      row-gap: var(--font-size-base);
+    }
+  }
+</style>
+<div id="rugby-greyscale-palette" aria-label="Greyscale palette: four lighter shades, base 500, and four darker shades">
+  <div class="swatches">
+    <div><div class="swatch" style="background: #E6E6E6" aria-hidden="true"></div><div>100</div><code class="text-small">#E6E6E6</code></div>
+    <div><div class="swatch" style="background: #CCCCCC" aria-hidden="true"></div><div>200</div><code class="text-small">#CCCCCC</code></div>
+    <div><div class="swatch" style="background: #B3B3B3" aria-hidden="true"></div><div>300</div><code class="text-small">#B3B3B3</code></div>
+    <div><div class="swatch" style="background: #999999" aria-hidden="true"></div><div>400</div><code class="text-small">#999999</code></div>
+    <div><div class="swatch" style="background: #808080" aria-hidden="true"></div><div>500 · Base</div><code class="text-small">#808080</code></div>
+    <div><div class="swatch" style="background: #666666" aria-hidden="true"></div><div>600</div><code class="text-small">#666666</code></div>
+    <div><div class="swatch" style="background: #4D4D4D" aria-hidden="true"></div><div>700</div><code class="text-small">#4D4D4D</code></div>
+    <div><div class="swatch" style="background: #333333" aria-hidden="true"></div><div>800</div><code class="text-small">#333333</code></div>
+    <div><div class="swatch" style="background: #1A1A1A" aria-hidden="true"></div><div>900</div><code class="text-small">#1A1A1A</code></div>
+  </div>
+</div>

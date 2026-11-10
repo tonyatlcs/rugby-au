@@ -2,6 +2,13 @@
 
 Run commands from the repository root with `pnpm --filter api <script>`.
 
+The development script pipes API logs through `pino-pretty` for readable, colored
+output. Production logs from `pnpm --filter api start` remain JSON.
+
+The API loads `apps/api/.env` at startup through `dotenv` when run with the
+workspace scripts. Access values with `process.env`; existing environment
+variables take precedence. The `.env` file is ignored by Git.
+
 | Script         | Purpose                                                                       |
 | -------------- | ----------------------------------------------------------------------------- |
 | `dev`          | Run the API on port 3001 and restart when source files change.                |
