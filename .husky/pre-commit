@@ -1,0 +1,4 @@
+pnpm --filter api lint
+pnpm --filter ui lint
+pnpm --filter api test
+pnpm --filter ui test
