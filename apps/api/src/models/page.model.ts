@@ -1,6 +1,6 @@
 import { modelOptions, prop, Severity, type Ref } from "@typegoose/typegoose";
 import { randomUUID } from "node:crypto";
-import { SiteModel } from "./site.model.ts";
+import { SiteModel } from "@/models/site.model";
 
 export type ComponentNode = {
   _id: string;

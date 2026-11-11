@@ -9,6 +9,28 @@ aliases into relative ESM imports for Node.js.
 See [the API README](apps/api/README.md) for testing, linting, formatting, and
 TypeScript configuration details.
 
+## Shared API contracts
+
+`packages/contracts` is the `@rugby-au/contracts` workspace package. It owns the
+public TypeBox response schemas and derives TypeScript types from those schemas.
+Both apps depend on it through `workspace:*`; database models stay in the API.
+
+Reusable schemas live in `src/common/` (for example, `site.ts` and
+`site-theme.ts`). Each route has its own contract file in `src/routes/`
+(for example, `list-sites.ts` and `health.ts`). `src/index.ts` exports the public
+schemas and types so both apps can import from the package root.
+
+```ts
+import { ListSitesResponseSchema } from "@rugby-au/contracts";
+import type { ListSitesResponse, Site } from "@rugby-au/contracts";
+```
+
+App dev, build, typecheck, and test commands build the contracts first. When
+editing contracts during an active dev session, run
+`pnpm --filter @rugby-au/contracts dev` in another terminal to watch for changes;
+restart an app if its dev server does not pick up the rebuilt package.
+Type annotations alone do not validate JSON received over HTTP.
+
 ## Git hooks
 
 Run `pnpm install` from the repository root to install dependencies and activate

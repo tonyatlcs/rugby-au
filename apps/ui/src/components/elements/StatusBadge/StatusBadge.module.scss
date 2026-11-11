@@ -1,0 +1,52 @@
+$badge-height: 27px;
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-8);
+  height: $badge-height;
+  border-radius: 99px;
+  padding: var(--spacing-4) var(--spacing-12);
+  background-color: var(--color-greyscale-0);
+
+  .dot {
+    height: var(--spacing-8);
+    width: var(--spacing-8);
+    border-radius: 99px;
+  }
+
+
+  & > span {
+    font-size: var(--font-body-XtraSmall-bold-size);
+    line-height: var(--font-body-XtraSmall-bold-line-height);
+    letter-spacing: var(--font-body-XtraSmall-bold-letter-spacing);
+    font-weight: var(--font-body-XtraSmall-bold-weight);
+    
+
+  }
+
+  .publishedDot {
+    background-color: var(--color-success-500);
+  }
+
+  .publishedLabel {
+    color: var(--color-success-500);
+  }
+
+  .draftDot {
+    background-color: var(--color-greyscale-200);
+  }
+
+  .draftLabel {
+    color: var(--color-greyscale-500);
+  }
+}
+
+.published {
+  border: 1px solid var(--color-success-200)
+}
+
+.draft {
+  border: 1px solid var(--color-greyscale-200)
+}

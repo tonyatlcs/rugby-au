@@ -6,7 +6,8 @@
     "moduleResolution": "NodeNext",
     "types": ["node"],
     "paths": {
-      "@/*": ["./src/*", "./src/*.ts", "./src/*/index.ts"]
+      "@/*": ["./src/*.ts", "./src/*/index.ts", "./src/*"],
+      "@test/*": ["./test/*.ts", "./test/*/index.ts", "./test/*"]
     },
     "strict": true,
     "noUncheckedIndexedAccess": true,

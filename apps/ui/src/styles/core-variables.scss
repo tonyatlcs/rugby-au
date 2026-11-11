@@ -21,6 +21,7 @@
   --spacing-36: 36px;
   --spacing-40: 40px;
   --spacing-44: 44px;
+  --spacing-56: 56px;
 
   /* Border Radius */
   --radius-4: 4px;
@@ -73,4 +74,88 @@
   --color-alert-700: #8f2929;
   --color-alert-800: #601b1b;
   --color-alert-900: #300e0e;
+
+  /* Typography */
+
+  /* Headings */
+  --font-h1-size: 56px;
+  --font-h1-line-height: 64px;
+  --font-h1-letter-spacing: 0;
+  --font-h1-weight: bold;
+
+  --font-h2-size: 40px;
+  --font-h2-line-height: 52px;
+  --font-h2-letter-spacing: 0;
+  --font-h2-weight: bold;
+
+  --font-h3-size: 32px;
+  --font-h3-line-height: 40px;
+  --font-h3-letter-spacing: 0;
+  --font-h3-weight: bold;
+
+  --font-h4-size: 24px;
+  --font-h4-line-height: 32px;
+  --font-h4-letter-spacing: 0.1px;
+  --font-h4-weight: 700;
+
+  --font-h5-size: 20px;
+  --font-h5-line-height: 28px;
+  --font-h5-letter-spacing: 0.1px;
+  --font-h5-weight: bold;
+
+  /* Body */
+  --font-body-large-size: 18px;
+  --font-body-large-line-height: 24px;
+  --font-body-large-letter-spacing: 0.1px;
+  --font-body-large-weight: 400;
+
+  --font-body-large-bold-size: 18px;
+  --font-body-large-bold-line-height: 24px;
+  --font-body-large-bold-letter-spacing: 0.1px;
+  --font-body-large-bold-weight: 600;
+
+  --font-body-default-size: 16px;
+  --font-body-default-line-height: 20px;
+  --font-body-default-letter-spacing: 0.1px;
+  --font-body-default-weight: 400;
+
+  --font-body-default-bold-size: 16px;
+  --font-body-default-bold-line-height: 20px;
+  --font-body-default-bold-letter-spacing: 0.1px;
+  --font-body-default-bold-weight: 600;
+
+  --font-body-small-size: 14px;
+  --font-body-small-line-height: 18px;
+  --font-body-small-letter-spacing: 0;
+  --font-body-small-weight: 400;
+
+  --font-body-small-bold-size: 14px;
+  --font-body-small-bold-line-height: 18px;
+  --font-body-small-bold-letter-spacing: 0;
+  --font-body-small-bold-weight: 600;
+
+  --font-body-large-hyperlink-size: 18px;
+  --font-body-large-hyperlink-line-height: 24px;
+  --font-body-large-hyperlink-letter-spacing: 0.1px;
+  --font-body-large-hyperlink-weight: 400;
+
+  --font-default-hyperlink-bold-size: 16px;
+  --font-default-hyperlink-bold-line-height: 20px;
+  --font-default-hyperlink-bold-letter-spacing: 0.1px;
+  --font-default-hyperlink-bold-weight: 400;
+
+  --font-body-hyperlink-small-size: 14px;
+  --font-body-hyperlink-small-line-height: 18px;
+  --font-body-hyperlink-small-letter-spacing: 0;
+  --font-body-hyperlink-small-weight: 400;
+
+  --font-body-XtraSmall-size: 12px;
+  --font-body-XtraSmall-line-height: 16px;
+  --font-body-XtraSmall-letter-spacing: 0;
+  --font-body-XtraSmall-weight: 400;
+
+  --font-body-XtraSmall-bold-size: 12px;
+  --font-body-XtraSmall-bold-line-height: 16px;
+  --font-body-XtraSmall-bold-letter-spacing: 0;
+  --font-body-XtraSmall-bold-weight: 600;
 }

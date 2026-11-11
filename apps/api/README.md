@@ -9,6 +9,17 @@ The API loads `apps/api/.env` at startup through `dotenv` when run with the
 workspace scripts. Access values with `process.env`; existing environment
 variables take precedence. The `.env` file is ignored by Git.
 
+Set `MONGODB_URI` in `apps/api/.env` (see `.env.example`). The server connects
+through Mongoose before accepting requests, using the same default connection as
+the Typegoose models. Startup fails if the URI is missing or MongoDB cannot be
+reached within five seconds. Database errors are logged, and `SIGINT`/`SIGTERM`
+close the HTTP server and database connection. Collection and index creation stay
+in migrations; starting the API does not run migrations automatically.
+
+`buildApp()` registers the MongoDB startup and shutdown hooks in `src/app.ts`.
+The connection opens when Fastify becomes ready, including when tests use
+`inject()`. Tests use a temporary MongoDB server through `mongodb-memory-server`.
+
 | Script         | Purpose                                                                       |
 | -------------- | ----------------------------------------------------------------------------- |
 | `dev`          | Run the API on port 3001 and restart when source files change.                |
@@ -66,9 +77,22 @@ script so they are not automatically inserted into production databases.
 ## Imports and tests
 
 Use extensionless `@/` imports to reference `src/`, such as `@/app`.
-The alias works in `tsx`, Vitest, and production builds. The build uses
+Use `@test/` imports for shared test helpers, such as `@test/setup`.
+The source alias works in `tsx`, Vitest, and production builds. The build uses
 `tsc-alias` to turn aliases into relative imports with `.js` extensions.
 
 Name tests `*.test.ts`, `*.spec.ts`, `*.test.tsx`, or `*.spec.tsx` and import test
 helpers explicitly from `vitest`. The health-route test uses Fastify's `inject`
 method to exercise the application without opening a network port.
+
+Vitest starts one temporary MongoDB server per run and stops it at teardown.
+`test/setup.ts` sets `MONGODB_URI` to the shared database, creates and readies the
+test app, and clears all collections after each test. Import `app` from this setup
+file to call `app.inject()` and use models directly. The setup closes the app and
+its Mongoose connection after the test file finishes.
+Test files run sequentially so cleanup cannot interfere with other files.
+Keep tests sequential within each file as well.
+
+The first test run downloads a MongoDB binary and needs internet access. Later
+runs reuse the cached binary. Migrations and seed data are not run automatically;
+insert the fixtures each test needs.
