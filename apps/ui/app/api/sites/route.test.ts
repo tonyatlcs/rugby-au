@@ -35,10 +35,12 @@ it("maps backend sites and their page counts into the frontend response", async 
   expect(response.status).toBe(200);
   expect(await response.json()).toEqual([
     {
+      id: "site-1",
       name: "Rugby AU",
       url: "rugby-au",
       status: "draft",
       pageCount: 3,
+      themeColor: "#fa4602",
     },
   ]);
 });
