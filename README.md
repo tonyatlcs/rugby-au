@@ -1,7 +1,14 @@
 # rugby-au
 This project showcases a demo of a website builder
 
-Both apps map `@/*` to their own `src/*` directory. The UI resolves these
+All workspaces extend the root `tsconfig.base.json`, which defines `@/*` for
+each workspace's own `src/` directory and `@test/*` for its `test/` directory.
+Add or update shared aliases in that root file. The API overrides these aliases
+with explicit TypeScript extensions for NodeNext resolution; keep its mappings in
+sync with the shared aliases. Keep imports between workspaces using package
+names, such as `@rugby-au/contracts`.
+
+The UI resolves these
 imports through Next.js. Run the API with `pnpm --filter api dev` and use
 extensionless API imports such as `@/services/example`. The API build rewrites
 aliases into relative ESM imports for Node.js.

@@ -1,7 +1,16 @@
-import type { ListSitesItem, ListSitesResponse } from "@rugby-au/contracts";
+import type {
+  ListSitesItem,
+  ListSitesResponse,
+  RetrieveSiteParam,
+  RetrieveSiteResponse,
+} from "@rugby-au/contracts";
 import type { FastifyBaseLogger } from "fastify";
 import type { PipelineStage } from "mongoose";
 import { Page, Site } from "@/models/model";
+import {
+  transformRetrieveSiteResponse,
+  type SiteWithPages,
+} from "@/controllers/sites/retrieve-site/util/transform-retrieve-site-response.dto";
 
 /** Operation signatures for retrieving site data for API responses. */
 export type SiteServiceType = {
@@ -13,6 +22,17 @@ export type SiteServiceType = {
    * @throws Rethrows query or mapping errors after logging them.
    */
   listSites: () => Promise<ListSitesResponse>;
+
+  /**
+   * Retrieves a site and its associated pages in one database aggregation.
+   *
+   * @param param - The ID of the site to retrieve.
+   * @returns The transformed site and pages.
+   * @throws Rethrows query or mapping errors after logging them.
+   */
+  retrieveSite: (
+    param: RetrieveSiteParam,
+  ) => Promise<RetrieveSiteResponse | undefined>;
 };
 
 /**
@@ -47,8 +67,24 @@ export const createSiteService = (
           description: { $ifNull: ["$description", ""] },
           status: { $ifNull: ["$status", "draft"] },
           pageCount: pageCountOrZero,
+          createdAt: {
+            $dateToString: {
+              date: "$createdAt",
+              format: "%Y-%m-%dT%H:%M:%S.%LZ",
+              timezone: "UTC",
+            },
+          },
+          updatedAt: {
+            $dateToString: {
+              date: "$updatedAt",
+              format: "%Y-%m-%dT%H:%M:%S.%LZ",
+              timezone: "UTC",
+            },
+          },
         })
-        .project("id name siteKey description theme status pageCount -_id")
+        .project(
+          "id name siteKey description theme status pageCount createdAt updatedAt -_id",
+        )
         .exec();
     } catch (error) {
       logger.error({ error }, "Failed to list sites");
@@ -56,7 +92,37 @@ export const createSiteService = (
     }
   };
 
+  const retrieveSite: SiteServiceType["retrieveSite"] = async ({ siteId }) => {
+    try {
+      const lookupSitePages: PipelineStage.Lookup = {
+        $lookup: {
+          from: Page.collection.name,
+          localField: "_id",
+          foreignField: "siteId",
+          as: "pages",
+        },
+      };
+
+      const lookupSite: PipelineStage = {
+        $match: { _id: siteId },
+      };
+
+      const [site] = await Site.aggregate<SiteWithPages>([
+        lookupSite,
+        lookupSitePages,
+      ]).exec();
+
+      const response = transformRetrieveSiteResponse(site || undefined);
+
+      return response;
+    } catch (error) {
+      logger.error({ error, siteId }, "Failed to retrieve site");
+      throw error;
+    }
+  };
+
   return {
     listSites,
+    retrieveSite,
   };
 };

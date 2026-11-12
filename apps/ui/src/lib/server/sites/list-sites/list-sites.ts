@@ -3,9 +3,9 @@ import "server-only";
 import type { ListSitesResponse } from "@rugby-au/contracts";
 import createHttpError from "http-errors";
 import type { SiteListResponse } from "@/lib/server/sites/list-sites/list-sites.schema";
-import { backendFetch } from "../../backend-fetch";
+import { backendFetch } from "@/lib/server/backend-fetch";
 
-export async function listSites(): Promise<SiteListResponse> {
+export const listSites = async (): Promise<SiteListResponse> => {
   try {
     const response = await backendFetch("/sites");
 
@@ -34,4 +34,4 @@ export async function listSites(): Promise<SiteListResponse> {
 
     throw createHttpError.InternalServerError("Something went wrong");
   }
-}
+};

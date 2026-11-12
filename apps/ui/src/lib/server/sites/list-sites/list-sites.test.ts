@@ -1,11 +1,11 @@
 // @vitest-environment node
 import { afterEach, expect, it, vi } from "vitest";
 import type { ListSitesResponse } from "@rugby-au/contracts";
-import { backendFetch } from "../../backend-fetch";
+import { backendFetch } from "@/lib/server/backend-fetch";
 import { listSites } from "./list-sites";
 
 vi.mock("server-only", () => ({}));
-vi.mock("../../backend-fetch", () => ({ backendFetch: vi.fn() }));
+vi.mock("@/lib/server/backend-fetch", () => ({ backendFetch: vi.fn() }));
 
 afterEach(() => {
   vi.resetAllMocks();
@@ -19,6 +19,8 @@ it("returns site list data directly for a Server Component", async () => {
         name: "Rugby AU",
         siteKey: "rugby-au",
         pageCount: 2,
+        createdAt: "2026-01-01T00:00:00.000Z",
+        updatedAt: "2026-01-01T00:00:00.000Z",
         status: "draft",
         theme: {
           primaryColor: "#005A30",

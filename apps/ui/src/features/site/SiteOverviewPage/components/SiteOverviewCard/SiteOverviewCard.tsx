@@ -46,7 +46,7 @@ export const SiteOverviewCard: React.FC<SiteOverviewCardProps> = (props) => {
           </div>
         </div>
         <div className={styles.bodyContents}>
-          <Tag className={styles.pageCountTag}>
+          <Tag className={styles.pageCountTag} variant="default" tagColor="primary" size="small">
             <span>
               {props.cardItems.pageCount > 0
                 ? `${props.cardItems.pageCount} pages`

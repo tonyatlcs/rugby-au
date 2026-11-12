@@ -1,10 +1,33 @@
-.wrapper {
-  padding: var(--spacing-4) var(--spacing-12);
+.default {
   background-color: var(--color-primary-100);
-  border-radius: var(--radius-8);
   color: var(--color-primary-500);
+}
+
+.neutral {
+  background-color: var(--color-greyscale-100);
+  color: var(--color-greyscale-600);
+}
+
+.wrapper {
+  border-radius: var(--radius-8);
+}
+
+.small {
+  padding: var(--spacing-4) var(--spacing-12);
   font-size: var(--font-body-XtraSmall-bold-size);
   line-height: var(--font-body-XtraSmall-bold-line-height);
   letter-spacing: var(--font-body-XtraSmall-bold-letter-spacing);
   font-weight: var(--font-body-XtraSmall-bold-weight);
+}
+
+.large {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 36px;
+  padding: var(--spacing-4) var(--spacing-12);
+  font-size: var(--font-body-small-size);
+  line-height: var(--font-body-small-line-height);
+  letter-spacing: var(--font-body-small-letter-spacing);
+  font-weight: var(--font-body-small-weight);
 }

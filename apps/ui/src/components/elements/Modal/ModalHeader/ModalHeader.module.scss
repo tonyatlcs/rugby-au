@@ -1,0 +1,41 @@
+.modalHeader {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+
+  .headerContianer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: inherit;
+
+    .headerContents {
+      display: flex;
+      flex-direction: column;
+      .headingTitle {
+        font-size: var(--font-body-large-bold-size);
+        font-weight: var(--font-body-default-bold-weight);
+      }
+      .headingSubtitle {
+        font-size: var(--font-body-XtraSmall-bold-size);
+        color: var(--color-greyscale-600);
+      }
+    }
+
+    .closeButton {
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      padding: var(--radius-8);
+      transition: background-color 150ms ease-in;
+
+      &:hover {
+        background-color: var(--color-greyscale-100);
+      }
+    }
+  }
+}

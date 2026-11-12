@@ -1,5 +1,5 @@
 import { Type, type Static } from "@sinclair/typebox";
-import { SiteThemeSchema } from "./site-theme.js";
+import { SiteThemeSchema } from "./site-theme.schema.js";
 
 export const SiteStatusSchema = Type.Union([
   Type.Literal("draft"),
@@ -16,6 +16,8 @@ export const SiteSchema = Type.Object({
   status: SiteStatusSchema,
   theme: SiteThemeSchema,
   pageCount: Type.Number({ minimum: 0 }),
+  createdAt: Type.String({ format: "date-time" }),
+  updatedAt: Type.String({ format: "date-time" }),
 });
 
 export type Site = Static<typeof SiteSchema>;

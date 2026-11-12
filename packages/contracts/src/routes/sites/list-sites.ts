@@ -1,5 +1,5 @@
 import { Type, type Static } from "@sinclair/typebox";
-import { SiteSchema } from "../../common/site.js";
+import { SiteSchema } from "../../common/index.js";
 
 export const ListSitesItemSchema = Type.Object({
   ...SiteSchema.properties,

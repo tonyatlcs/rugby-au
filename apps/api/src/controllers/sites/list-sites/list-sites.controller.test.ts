@@ -18,6 +18,8 @@ describe("listSitesController", () => {
         description: "",
         status: "draft",
         pageCount: 0,
+        createdAt: site.createdAt.toISOString(),
+        updatedAt: site.updatedAt.toISOString(),
         theme: {
           primaryColor: "#fa4602",
           backgroundColor: "#FFFFFF",

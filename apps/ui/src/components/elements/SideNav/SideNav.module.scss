@@ -1,0 +1,12 @@
+.wrapper {
+  width: 320px;
+  height: 100%;
+  flex-shrink: 0;
+  overflow-y: auto;
+  border-right: 1px solid var(--color-greyscale-100);
+
+  section {
+    padding-block: var(--spacing-16);
+    border-bottom: 1px solid var(--color-greyscale-100);
+  }
+}
