@@ -6,6 +6,8 @@ import { Tag } from "@/components/elements/Tag/Tag";
 import type { PageInformation } from "@/lib/server/schemas/page.schema";
 import { PageEntryRow } from "@/features/site/pages/SiteEditorPage/components/PageEntryRow/PageEntryRow";
 import { EmptyPageBanner } from "@/features/site/pages/SiteEditorPage/components/EmptyPageBanner/EmptyPageBanner";
+import styles from "@/features/site/pages/SiteEditorPage/components/PageStructureSection/PageStructureSection.module.scss";
+import { usePageEditorManager } from "@/providers/PageEditor";
 
 interface PageStructureSectionProps {
   pageCount: number;
@@ -16,6 +18,7 @@ export const PageStructureSection: React.FC<PageStructureSectionProps> = ({
   pageCount,
   pageList,
 }) => {
+  const { selectedPage, setSelectedPage } = usePageEditorManager();
   const renderSectionContents = () => {
     if (pageList.length === 0) {
       return <EmptyPageBanner />;
@@ -23,10 +26,11 @@ export const PageStructureSection: React.FC<PageStructureSectionProps> = ({
       return pageList.map((page) => (
         <PageEntryRow
           key={page.id}
+          id={page.id}
           page={page}
           depth={0}
-          isSelected={false}
-          onSelect={() => {}}
+          isSelected={page.id === selectedPage?.id}
+          onSelect={() => setSelectedPage(page)}
         />
       ));
     }
@@ -34,6 +38,7 @@ export const PageStructureSection: React.FC<PageStructureSectionProps> = ({
 
   return (
     <SideNavSection
+      className={styles.section}
       primaryTitle="Pages"
       secondaryTitle={
         <Tag variant="default" tagColor="primary" size="small">
@@ -41,7 +46,7 @@ export const PageStructureSection: React.FC<PageStructureSectionProps> = ({
         </Tag>
       }
     >
-      {renderSectionContents()}
+      <div className={styles.wrapper}>{renderSectionContents()}</div>
     </SideNavSection>
   );
 };

@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+
+  .address {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+    & > p {
+      font-size: var(--font-body-default-size);
+      line-height: var(--font-body-default-line-height);
+      letter-spacing: var(--font-body-default-letter-spacing);
+      font-weight: var(--font-body-default-weight);
+    }
+    
+  }
+}
+
+.actionCtaContainer {
+  display: flex;
+  gap: var(--spacing-16);
+  justify-content: end;
+}
+
+

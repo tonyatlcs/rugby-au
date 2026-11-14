@@ -51,7 +51,7 @@ export const CreatePageModal: React.FC<CreatePageModalProps> = (props) => {
       siteId: props.siteId,
       title: currentValues.title,
       path: currentValues.path,
-      parentId: currentValues.parentPageId,
+      parentId: currentValues.parentPageId || undefined,
     };
     setSubmitting(true);
     setSubmitError("");
@@ -120,7 +120,7 @@ export const CreatePageModal: React.FC<CreatePageModalProps> = (props) => {
               value: page.id,
             })),
           ]}
-          value={values.parentPage || undefined}
+          value={values.parentPage}
           onChange={(value) => setField("parentPage", value)}
           label="Organise under"
           fullWidth

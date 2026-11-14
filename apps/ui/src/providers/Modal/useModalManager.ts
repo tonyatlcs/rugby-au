@@ -15,8 +15,3 @@ export const useModalManager = (): ModalContextProps => {
   }
   return context;
 };
-
-/** For components that work with or without the provider (e.g. stacked modal). */
-export const useOptionalModalManager = (): ModalContextProps | undefined => {
-  return useContext(ModalManagerContext);
-};

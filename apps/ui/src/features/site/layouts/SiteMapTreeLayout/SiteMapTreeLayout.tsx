@@ -1,31 +1,39 @@
 "use client";
 
 import { PageNode } from "@/components/elements/PageNode/PageNode";
-import type { PageTree } from "@/lib/server/schemas/page.schema";
+import type {
+  PageInformation,
+  PageTree,
+} from "@/lib/server/schemas/page.schema";
+import { useSyncExternalStore } from "react";
 import Tree, { type RawNodeDatum } from "react-d3-tree";
 import styles from "./SiteMapTreeLayout.module.scss";
+
+const subscribe = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
 
 interface SiteMapTreeLayoutProps {
   siteName: string;
   url: string;
   pages: PageTree;
-  selectedPageId?: string | null;
-  newPageIds?: string[];
-  onSelectPage?: (pageId: string) => void;
+  selectedPage?: PageInformation | null;
+  onSelectPage?: (page: PageInformation) => void;
 }
 
 export const SiteMapTreeLayout: React.FC<SiteMapTreeLayoutProps> = ({
   siteName,
   pages,
-  selectedPageId,
-  newPageIds,
+  selectedPage,
   onSelectPage,
 }) => {
+  // react-d3-tree generates random IDs during render, so mount it after hydration.
+  const isClient = useSyncExternalStore(subscribe, getClientSnapshot, getServerSnapshot);
   const data: RawNodeDatum = { name: siteName, children: pages };
 
   return (
     <div className={styles.tree}>
-      <Tree
+      {isClient && <Tree
         data={data}
         svgClassName="site-map-tree-svg"
         orientation="vertical"
@@ -37,23 +45,39 @@ export const SiteMapTreeLayout: React.FC<SiteMapTreeLayoutProps> = ({
         pathClassFunc={() => styles.link}
         renderCustomNodeElement={({ nodeDatum }) => {
           const id = nodeDatum.attributes?.id as string | undefined;
+          const page = id ? findPage(pages, id) : undefined;
           return (
             <foreignObject x={-120} y={-56} width={240} height={112}>
               <div className={styles.node}>
-                <PageNode
-                  variant={id ? "page" : "website"}
-                  title={nodeDatum.name}
-                  description={id ? undefined : "Website"}
-                  path={nodeDatum.attributes?.path as string | undefined}
-                  active={id === selectedPageId}
-                  isNew={id ? newPageIds?.includes(id) : false}
-                  onSelect={id ? () => onSelectPage?.(id) : undefined}
-                />
+                {page ? (
+                  <PageNode
+                    variant="page"
+                    title={page.title}
+                    description={page.path}
+                    active={page.id === selectedPage?.id}
+                    onSelect={() => onSelectPage?.(page)}
+                  />
+                ) : (
+                  <PageNode
+                    variant="website"
+                    title={nodeDatum.name}
+                    description="Website"
+                  />
+                )}
               </div>
             </foreignObject>
           );
         }}
-      />
+      />}
     </div>
   );
 };
+
+function findPage(pages: PageTree, id: string): PageInformation | undefined {
+  for (const page of pages) {
+    if (page.attributes.id === id) return page.attributes;
+    const child = findPage(page.children, id);
+    if (child) return child;
+  }
+  return undefined;
+}

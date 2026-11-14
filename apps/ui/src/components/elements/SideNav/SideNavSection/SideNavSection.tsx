@@ -8,11 +8,12 @@ interface SideNavSectionProps {
   secondaryTitle?: ReactNode;
   children: ReactNode;
   titleIcon?: ReactNode;
+  className?: string;
 }
 
 export const SideNavSection: React.FC<SideNavSectionProps> = (props) => {
   return (
-    <div className={styles.wrapper}>
+    <div className={[styles.wrapper, props.className].filter(Boolean).join(" ")}>
       <div className={styles.titleContainer}>
         <h4 className={styles.title}>
           {props.titleIcon}

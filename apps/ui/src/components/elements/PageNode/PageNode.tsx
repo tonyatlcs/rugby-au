@@ -4,17 +4,14 @@ import styles from "@/components/elements/PageNode/PageNode.module.scss";
 import { Check, FileChartColumn, Globe, Plus } from "lucide-react";
 import clsx from "clsx";
 
-type PageNodeVariantType = "website" | "page" | "add";
-
-interface PageNodeProps {
-  variant: PageNodeVariantType;
+type PageNodeProps = {
+  variant: "page" | "website" | "add";
   title: string;
   description?: string;
-  path?: string;
   active?: boolean;
   isNew?: boolean;
   onSelect?: () => void;
-}
+};
 
 export const PageNode: React.FC<PageNodeProps> = (props) => {
   const renderIcon = () => {
@@ -65,11 +62,7 @@ export const PageNode: React.FC<PageNodeProps> = (props) => {
         })}
       >
         <h4>{props.title}</h4>
-        <span>
-          {props.variant === "website" || props.variant === "add"
-            ? props.description
-            : props.path}
-        </span>
+        <span>{props.description}</span>
       </div>
     </div>
   );

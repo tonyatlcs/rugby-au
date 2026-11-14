@@ -1,8 +1,8 @@
 import { Suspense, type ReactNode } from "react";
 import { getSite } from "@/lib/server/sites/retrieve-site/retrieve-site";
-import SiteEditorLayout from "@/features/site/layouts/SiteEditorLayout/SiteEditorLayout";
-import type { OnboardingStep } from "@/features/site/pages/SiteEditorPage/components/OnboardingStepsSection/OnboardingStepsSection";
+import { SiteEditorLayout } from "@/features/site/layouts/SiteEditorLayout/SiteEditorLayout";
 import type { SiteParam } from "@/lib/server/sites/retrieve-site/retrieve-site.schema";
+import { PageEditorProvider } from "@/providers/PageEditor";
 
 type LayoutProps = {
   children: ReactNode;
@@ -17,39 +17,17 @@ export default function Layout(props: LayoutProps) {
   );
 }
 
-async function SiteLayoutContent({
-  children,
-  params,
-}: LayoutProps) {
+async function SiteLayoutContent({ children, params }: LayoutProps) {
   const { siteId } = await params;
   const { siteInformation, pageInformation } = await getSite({ siteId });
-  const stepInfo: OnboardingStep[] = [
-    {
-      id: "create-website",
-      title: "Create your website",
-      subtitle: siteInformation.url || "",
-      completed: true,
-      active: false,
-    },
-    {
-      id: "add-first-page",
-      title: "Add your first page",
-      subtitle: "Most sites start with a Home page.",
-      completed: false,
-      active: true,
-    },
-    {
-      id: "publish-site",
-      title: "Publish your site",
-      subtitle: "Make it live for your members.",
-      completed: false,
-      active: false,
-    },
-  ];
-
   return (
-    <SiteEditorLayout siteInformation={siteInformation} pageInformation={pageInformation} stepInfo={stepInfo}>
-      {children}
-    </SiteEditorLayout>
+    <PageEditorProvider>
+      <SiteEditorLayout
+        siteInformation={siteInformation}
+        pageInformation={pageInformation}
+      >
+        {children}
+      </SiteEditorLayout>
+    </PageEditorProvider>
   );
 }

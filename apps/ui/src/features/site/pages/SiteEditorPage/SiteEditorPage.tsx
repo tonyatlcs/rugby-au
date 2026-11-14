@@ -11,7 +11,7 @@ import { useModalManager } from "@/providers/Modal";
 import { CreatePageModal } from "@/features/site/pages/SiteEditorPage/components/CreatePageModal/CreatePageModal";
 
 import { SiteMapTreeLayout } from "@/features/site/layouts/SiteMapTreeLayout/SiteMapTreeLayout";
-import { useState } from "react";
+import { usePageEditorManager } from "@/providers/PageEditor";
 
 interface SiteEditorPageProps {
   siteInformation: SiteInformation;
@@ -22,7 +22,7 @@ export const SiteEditorPage: React.FC<SiteEditorPageProps> = ({
   siteInformation,
   pageTree,
 }) => {
-  const [selectedPageId, setSelectedPageId] = useState<string | null>(null);
+  const { selectedPage, setSelectedPage } = usePageEditorManager();
   return (
     <div className={styles.canvas}>
       <section className={styles.header}>
@@ -44,8 +44,8 @@ export const SiteEditorPage: React.FC<SiteEditorPageProps> = ({
             siteName={siteInformation.siteName}
             url={siteInformation.url || ""}
             pages={pageTree}
-            selectedPageId={selectedPageId}
-            onSelectPage={setSelectedPageId}
+            selectedPage={selectedPage}
+            onSelectPage={setSelectedPage}
           />
         ) : (
           <PageEmptyState

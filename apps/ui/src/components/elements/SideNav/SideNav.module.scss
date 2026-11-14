@@ -4,10 +4,12 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  overflow-y: auto;
+  min-height: 0;
   border-right: 1px solid var(--color-greyscale-100);
 
   .sections {
+    display: flex;
+    flex-direction: column;
     flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
@@ -18,8 +20,8 @@
     border-bottom: 0;
   }
 
-  .sections > :only-child {
-    min-height: 100%;
+  .footer {
+    flex-shrink: 0;
   }
   
 
