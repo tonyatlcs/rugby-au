@@ -1,42 +1,55 @@
-import { TopNav } from "@/components/elements/TopNav/TopNav";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import { getSite } from "@/lib/server/sites/retrieve-site/retrieve-site";
-import { SideNav } from "@/components/elements/SideNav/SideNav";
-import styles from "./layout.module.scss";
-import { PageStructureSection } from "@/features/site/SiteEditorPage/components/PageStructureSection/PageStructureSection";
+import SiteEditorLayout from "@/features/site/layouts/SiteEditorLayout/SiteEditorLayout";
+import type { OnboardingStep } from "@/features/site/pages/SiteEditorPage/components/OnboardingStepsSection/OnboardingStepsSection";
+import type { SiteParam } from "@/lib/server/sites/retrieve-site/retrieve-site.schema";
 
-interface LayoutProps {
+type LayoutProps = {
   children: ReactNode;
-  params: Promise<{ siteid: string }>;
+  params: Promise<SiteParam>;
+};
+
+export default function Layout(props: LayoutProps) {
+  return (
+    <Suspense fallback={<p>Loading website…</p>}>
+      <SiteLayoutContent {...props} />
+    </Suspense>
+  );
 }
 
-export default async function SiteEditorLayout({
+async function SiteLayoutContent({
   children,
   params,
 }: LayoutProps) {
-  const { siteid } = await params;
-  const { siteInformation, pageInformation } = await getSite({
-    siteId: siteid,
-  });
+  const { siteId } = await params;
+  const { siteInformation, pageInformation } = await getSite({ siteId });
+  const stepInfo: OnboardingStep[] = [
+    {
+      id: "create-website",
+      title: "Create your website",
+      subtitle: siteInformation.url || "",
+      completed: true,
+      active: false,
+    },
+    {
+      id: "add-first-page",
+      title: "Add your first page",
+      subtitle: "Most sites start with a Home page.",
+      completed: false,
+      active: true,
+    },
+    {
+      id: "publish-site",
+      title: "Publish your site",
+      subtitle: "Make it live for your members.",
+      completed: false,
+      active: false,
+    },
+  ];
 
   return (
-    <div className={styles.layout}>
-      <div className={styles.header}>
-        <TopNav
-          siteName={siteInformation.siteName}
-          pageCount={siteInformation.pageCount}
-          publicSiteUrl={siteInformation.url}
-        />
-      </div>
-      <div className={styles.body}>
-        <SideNav title="" headerNode={undefined}>
-          <PageStructureSection
-            pageCount={siteInformation.pageCount}
-            pageList={pageInformation}
-          />
-        </SideNav>
-        <main className={styles.content}>{children}</main>
-      </div>
-    </div>
+    <SiteEditorLayout siteInformation={siteInformation} pageInformation={pageInformation} stepInfo={stepInfo}>
+      {children}
+    </SiteEditorLayout>
   );
 }

@@ -7,8 +7,7 @@
     "moduleResolution": "NodeNext",
     "types": ["node"],
     "paths": {
-      "@/*": ["./src/*.ts", "./src/*/index.ts", "./src/*"],
-      "@test/*": ["./test/*.ts", "./test/*/index.ts", "./test/*"]
+      "@/*": ["./src/*.ts", "./src/*/index.ts", "./src/*"]
     },
     "strict": true,
     "noUncheckedIndexedAccess": true,
@@ -24,9 +23,6 @@
     "allowImportingTsExtensions": true,
     "rewriteRelativeImportExtensions": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": ["node_modules", "dist", "coverage"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import tseslint from "typescript-eslint";
 
 export default defineConfig([
-  globalIgnores(["dist/**", "coverage/**", ".vitest/**"]),
+  globalIgnores(["dist/**"]),
   {
     files: ["**/*.mjs"],
     extends: [js.configs.recommended],

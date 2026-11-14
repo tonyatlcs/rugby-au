@@ -3,9 +3,6 @@
     "paths": {
       "@/*": [
         "${configDir}/src/*"
-      ],
-      "@test/*": [
-        "${configDir}/test/*"
       ]
     }
   }

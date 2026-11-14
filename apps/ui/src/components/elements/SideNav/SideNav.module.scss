@@ -1,9 +1,27 @@
 .wrapper {
   width: 320px;
   height: 100%;
+  display: flex;
+  flex-direction: column;
   flex-shrink: 0;
   overflow-y: auto;
   border-right: 1px solid var(--color-greyscale-100);
+
+  .sections {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    border-bottom: 1px solid var(--color-greyscale-100);
+  }
+
+  .sections > :last-child {
+    border-bottom: 0;
+  }
+
+  .sections > :only-child {
+    min-height: 100%;
+  }
+  
 
   section {
     padding-block: var(--spacing-16);

@@ -17,34 +17,27 @@ close the HTTP server and database connection. Collection and index creation sta
 in migrations; starting the API does not run migrations automatically.
 
 `buildApp()` registers the MongoDB startup and shutdown hooks in `src/app.ts`.
-The connection opens when Fastify becomes ready, including when tests use
-`inject()`. Tests use a temporary MongoDB server through `mongodb-memory-server`.
+The connection opens when Fastify becomes ready.
 
-| Script         | Purpose                                                                       |
-| -------------- | ----------------------------------------------------------------------------- |
-| `dev`          | Run the API on port 3001 and restart when source files change.                |
-| `build`        | Compile production files into `dist/` and rewrite aliases for Node.js ESM.    |
-| `start`        | Run the compiled API after building.                                          |
-| `typecheck`    | Check source files, tests, and TypeScript configuration files.                |
-| `test`         | Run Vitest once.                                                              |
-| `test:watch`   | Run Vitest in watch mode.                                                     |
-| `lint`         | Check files with type-aware ESLint rules.                                     |
-| `lint:fix`     | Apply available ESLint fixes.                                                 |
-| `format`       | Format API files with Prettier.                                               |
-| `format:check` | Check formatting without changing files.                                      |
-| `check`        | Run type checking, linting, formatting checks, tests, and a production build. |
+| Script         | Purpose                                                                    |
+| -------------- | -------------------------------------------------------------------------- |
+| `dev`          | Run the API on port 3001 and restart when source files change.             |
+| `build`        | Compile production files into `dist/` and rewrite aliases for Node.js ESM. |
+| `start`        | Run the compiled API after building.                                       |
+| `typecheck`    | Check source files and TypeScript configuration files.                     |
+| `lint`         | Check files with type-aware ESLint rules.                                  |
+| `lint:fix`     | Apply available ESLint fixes.                                              |
+| `format`       | Format API files with Prettier.                                            |
+| `format:check` | Check formatting without changing files.                                   |
+| `check`        | Run type checking, linting, formatting checks and a production build.      |
 
 ## TypeScript configurations
 
 - `tsconfig.json` contains shared compiler options and editor settings.
 - `tsconfig.build.json` extends the base and emits production source files only.
-  It excludes `.test.*`, `.spec.*`, and `test`, `tests`, `__tests__`, and `__mocks__`
-  directories. Keep test imports out of production modules: TypeScript follows
-  imports even when their targets match an exclusion.
-- `tsconfig.eslint.json` extends the base and includes all `.ts` and `.tsx` files,
-  including tests and configuration files, for type checking and ESLint.
+- `tsconfig.eslint.json` extends the base and includes TypeScript files for type checking and ESLint.
 
-Generated output, dependencies, and coverage reports are excluded from checks.
+Generated output and dependencies are excluded from checks.
 
 ## Database migrations and initial data
 
@@ -74,25 +67,7 @@ Keep required initial data in migrations so each database receives it once throu
 the migration changelog. Optional development fixtures should use a separate seed
 script so they are not automatically inserted into production databases.
 
-## Imports and tests
+## Imports
 
 Use extensionless `@/` imports to reference `src/`, such as `@/app`.
-Use `@test/` imports for shared test helpers, such as `@test/setup`.
-The source alias works in `tsx`, Vitest, and production builds. The build uses
-`tsc-alias` to turn aliases into relative imports with `.js` extensions.
-
-Name tests `*.test.ts`, `*.spec.ts`, `*.test.tsx`, or `*.spec.tsx` and import test
-helpers explicitly from `vitest`. The health-route test uses Fastify's `inject`
-method to exercise the application without opening a network port.
-
-Vitest starts one temporary MongoDB server per run and stops it at teardown.
-`test/setup.ts` sets `MONGODB_URI` to the shared database, creates and readies the
-test app, and clears all collections after each test. Import `app` from this setup
-file to call `app.inject()` and use models directly. The setup closes the app and
-its Mongoose connection after the test file finishes.
-Test files run sequentially so cleanup cannot interfere with other files.
-Keep tests sequential within each file as well.
-
-The first test run downloads a MongoDB binary and needs internet access. Later
-runs reuse the cached binary. Migrations and seed data are not run automatically;
-insert the fixtures each test needs.
+The build uses `tsc-alias` to turn aliases into relative imports with `.js` extensions.

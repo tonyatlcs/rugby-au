@@ -7,13 +7,17 @@ interface SideNavSectionProps {
   primaryTitle: string;
   secondaryTitle?: ReactNode;
   children: ReactNode;
+  titleIcon?: ReactNode;
 }
 
 export const SideNavSection: React.FC<SideNavSectionProps> = (props) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.titleContainer}>
-        <h4>{props.primaryTitle}</h4>
+        <h4 className={styles.title}>
+          {props.titleIcon}
+          {props.primaryTitle}
+        </h4>
         {props.secondaryTitle}
       </div>
       {props.children}

@@ -2,7 +2,7 @@
 This project showcases a demo of a website builder
 
 All workspaces extend the root `tsconfig.base.json`, which defines `@/*` for
-each workspace's own `src/` directory and `@test/*` for its `test/` directory.
+each workspace's own `src/` directory.
 Add or update shared aliases in that root file. The API overrides these aliases
 with explicit TypeScript extensions for NodeNext resolution; keep its mappings in
 sync with the shared aliases. Keep imports between workspaces using package
@@ -13,7 +13,7 @@ imports through Next.js. Run the API with `pnpm --filter api dev` and use
 extensionless API imports such as `@/services/example`. The API build rewrites
 aliases into relative ESM imports for Node.js.
 
-See [the API README](apps/api/README.md) for testing, linting, formatting, and
+See [the API README](apps/api/README.md) for linting, formatting, and
 TypeScript configuration details.
 
 ## Shared API contracts
@@ -32,7 +32,7 @@ import { ListSitesResponseSchema } from "@rugby-au/contracts";
 import type { ListSitesResponse, Site } from "@rugby-au/contracts";
 ```
 
-App dev, build, typecheck, and test commands build the contracts first. When
+App dev, build, and typecheck commands build the contracts first. When
 editing contracts during an active dev session, run
 `pnpm --filter @rugby-au/contracts dev` in another terminal to watch for changes;
 restart an app if its dev server does not pick up the rebuilt package.
@@ -44,20 +44,17 @@ Run `pnpm install` from the repository root to install dependencies and activate
 Husky through the `prepare` script. If dependencies are already installed, run
 `pnpm prepare` to activate the hooks.
 
-The pre-commit hook runs both lint scripts, then both test scripts explicitly:
+The pre-commit hook runs both lint scripts:
 
 ```bash
 pnpm --filter api lint
 pnpm --filter ui lint
-pnpm --filter api test
-pnpm --filter ui test
 ```
 
-A failed lint or test command blocks the commit. Run `pnpm test` to run both test
-suites manually. Run `pnpm check` for the full checks in both projects:
+A failed lint command blocks the commit. Run `pnpm check` for the full checks in both projects:
 
-- API: type checking, ESLint, Prettier checks, Vitest tests, and a production build.
-- UI: type checking, ESLint, Vitest component tests, and a production build.
+- API: type checking, ESLint, Prettier checks, and a production build.
+- UI: type checking, ESLint, and a production build.
 
 The full check command checks both projects even if one fails.
 Checks do not automatically format or stage files; use

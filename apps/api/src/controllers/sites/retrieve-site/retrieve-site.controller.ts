@@ -35,9 +35,9 @@ export const retireveSiteController = async (
   const response = await siteService.retrieveSite(request.params);
 
   if (!response) {
-    const message = "Failed to retrieve requested site information";
+    const message = "site not found";
     request.log.error(message);
-    throw createHttpError.InternalServerError(message);
+    throw createHttpError.NotFound(message);
   }
 
   return reply.status(200).send(response);

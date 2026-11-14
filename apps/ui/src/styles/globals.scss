@@ -2,3 +2,10 @@
 @use "./core-variables";
 @use "./basic-styles";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+.site-map-tree-svg .rd3t-g {
+  transform-box: view-box;
+  translate: 50% 50%;
+}
+
+

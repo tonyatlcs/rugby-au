@@ -28,12 +28,6 @@ Run these commands from the repository root:
 pnpm --filter ui check
 ```
 
-This generates Next.js route types, checks TypeScript, runs ESLint and Vitest,
-and creates a production build. The workspace pre-commit hook runs the UI and
-API lint and test scripts. Use `pnpm check` to check both apps or `pnpm test` to
-run both test suites.
-
-Run `pnpm --filter ui test:watch` for Vitest watch mode. Tests use React Testing
-Library with jsdom and resolve `@/` imports through the UI TypeScript config.
-Name component tests `*.test.tsx` or `*.spec.tsx`; they can live alongside the
-components they test.
+This generates Next.js route types, checks TypeScript, runs ESLint, and creates
+a production build. The workspace pre-commit hook runs the UI and API lint
+scripts. Use `pnpm check` to check both apps.

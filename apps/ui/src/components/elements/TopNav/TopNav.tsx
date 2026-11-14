@@ -6,19 +6,20 @@ import { ArrowLeft, Eye, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Tag } from "@/components/elements/Tag/Tag";
 import { Button } from "@/components/controls/Button";
-import { Modal } from "@/components/elements/Modal";
 import { useModalManager } from "@/providers/Modal";
+import type { PageInformation } from "@/lib/server/schemas/page.schema";
+import type { SiteInformation } from "@/lib/server/schemas/site.schema";
+import { CreatePageModal } from "@/features/site/pages/SiteEditorPage/components/CreatePageModal/CreatePageModal";
 
 interface TopNavProps {
-  siteName: string;
-  pageCount: number;
-  publicSiteUrl?: string;
+  siteInformation: SiteInformation;
+  pageInformation: PageInformation[];
   saveStatus?: "saving" | "saved" | "error";
 }
 
 export const TopNav: React.FC<TopNavProps> = (props) => {
   const router = useRouter();
-  const { setActiveModal, closeModal } = useModalManager();
+  const { setActiveModal } = useModalManager();
   return (
     <div className={styles.wrapper}>
       <div className={styles.titleContainer}>
@@ -38,16 +39,18 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
         <div>
           <h3>Page Overview</h3>
           <div className={styles.overviewDescripton}>
-            <span>{props.siteName}</span>
+            <span>{props.siteInformation.siteName}</span>
             <span>&middot;</span>
             <span>
-              {props.pageCount > 0 ? `${props.pageCount} pages` : "No pages"}
+              {props.siteInformation.pageCount > 0
+                ? `${props.siteInformation.pageCount} pages`
+                : "No pages"}
             </span>
           </div>
         </div>
       </div>
       <Tag variant="neutral" tagColor="greyscale" size="large">
-        <span>{props.publicSiteUrl}</span>
+        <span>{props.siteInformation.url}</span>
         <span className={styles.urlSeparator}>/</span>
         <span className={styles.pagesText}>pages</span>
       </Tag>
@@ -60,11 +63,15 @@ export const TopNav: React.FC<TopNavProps> = (props) => {
           buttonColor="primary"
           buttonSize="medium"
           type="button"
-          onClick={() => setActiveModal(
-            <Modal title="Create page" showCloseButton canClose={() => true} onClose={closeModal}>
-              <p>Page creation is coming soon.</p>
-            </Modal>,
-          )}
+          onClick={() =>
+            setActiveModal(
+              <CreatePageModal
+                sitePath={props.siteInformation.url || ""}
+                siteId={props.siteInformation.id}
+                pages={props.pageInformation}
+              />,
+            )
+          }
         >
           <Plus size={20} />
           <span>Create page</span>

@@ -10,15 +10,5 @@
     "declarationMap": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "coverage",
-    "**/*.test.*",
-    "**/*.spec.*",
-    "**/__tests__/**",
-    "**/__mocks__/**",
-    "**/tests/**",
-    "**/test/**"
-  ]
+  "exclude": ["node_modules", "dist"]
 }

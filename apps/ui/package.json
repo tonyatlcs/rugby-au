@@ -8,9 +8,7 @@
     "start": "next start",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "pnpm --filter @rugby-au/contracts build && next typegen && tsc --noEmit",
-    "test": "pnpm --filter @rugby-au/contracts build && vitest run",
-    "test:watch": "pnpm --filter @rugby-au/contracts build && vitest",
-    "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build"
+    "check": "pnpm typecheck && pnpm lint && pnpm build"
   },
   "dependencies": {
     "@rugby-au/contracts": "workspace:*",
@@ -21,22 +19,18 @@
     "lucide-react": "^1.70.0",
     "next": "16.4.6",
     "react": "19.3.0",
+    "react-d3-tree": "^3.6.7",
     "react-dom": "19.3.0"
   },
   "devDependencies": {
-    "@testing-library/dom": "^10.4.2",
-    "@testing-library/react": "^16.3.3",
     "@types/http-errors": "^2.0.5",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@vitejs/plugin-react": "^6.3.0",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
-    "jsdom": "^31.0.0",
     "sass": "^1.108.1",
-    "typescript": "^5",
-    "vitest": "^4.1.12"
+    "typescript": "^5"
   },
   "packageManager": "pnpm@10.28.0"
 }

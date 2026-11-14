@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import clsx from "clsx";
 import { CircleExclamationPoint } from "lucide-react";
 import {
   useId,
@@ -59,10 +60,13 @@ export function BaseInput({
         </label>
       )}
       <div
-        className={[
+        className={clsx(
           styles.inputContainer,
-          variant === "filled" && styles.filled,
-        ].filter(Boolean).join(" ")}
+          {
+            [styles.hasStartAdornment]: startAdornment,
+            [styles.filled]: variant === "filled",
+          },
+        )}
       >
         {startAdornment}
         <input
@@ -79,6 +83,7 @@ export function BaseInput({
             key="error"
             animate={{ height: "auto", marginTop: 0, opacity: 1, y: 0 }}
             className={styles.errorWrapper}
+            role="alert"
             exit={collapsedError}
             initial={collapsedError}
             transition={{

@@ -1,0 +1,111 @@
+// =================================
+// StepRow styles
+// =================================
+.progress {
+  margin-bottom: var(--spacing-8);
+}
+
+.titleIcon {
+  color: var(--color-primary-500);
+}
+
+.nextStep {
+  margin: 0;
+  color: var(--color-greyscale-900);
+  font-size: var(--font-body-small-size);
+  line-height: var(--font-body-small-line-height);
+
+  span {
+    color: var(--color-greyscale-500);
+  }
+}
+
+.stepRowWrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+  padding: var(--spacing-8) 0;
+}
+
+.status {
+  display: flex;
+  flex: 0 0 var(--spacing-24);
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-24);
+  height: var(--spacing-24);
+  border: 1px solid var(--color-greyscale-300);
+  border-radius: 50%;
+  color: var(--color-greyscale-500);
+  font-size: var(--font-body-small-bold-size);
+  font-weight: var(--font-body-small-bold-weight);
+  line-height: var(--font-body-small-bold-line-height);
+}
+
+.completed {
+  color: var(--color-greyscale-0);
+  background: var(--color-success-500);
+  border-color: var(--color-success-500);
+}
+
+.active {
+  border: 2px solid var(--color-primary-500);
+  color: var(--color-primary-500);
+  font-size: var(--font-body-small-bold-size);
+  font-weight: var(--font-body-small-bold-weight);
+  line-height: var(--font-body-small-bold-line-height);
+}
+
+.stepContent {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  font-size: var(--font-body-small-size);
+  line-height: var(--font-body-small-line-height);
+  overflow-wrap: anywhere;
+}
+
+.title {
+  color: var(--color-greyscale-900);
+}
+
+.activeTitle {
+  font-size: var(--font-body-small-bold-size);
+  font-weight: var(--font-body-small-bold-weight);
+  line-height: var(--font-body-small-bold-line-height);
+  letter-spacing: var(--font-body-small-bold-letter-spacing);
+}
+
+.pendingTitle {
+  color: var(--color-greyscale-500);
+}
+
+.completedTitle {
+  color: var(--color-greyscale-500);
+  font-size: var(--font-body-small-bold-size);
+  font-weight: var(--font-body-small-bold-weight);
+  line-height: var(--font-body-small-bold-line-height);
+  letter-spacing: var(--font-body-small-bold-letter-spacing);
+  text-decoration: line-through;
+}
+
+.subtitle {
+  color: var(--color-greyscale-500);
+  font-size: var(--font-body-XtraSmall-size);
+  line-height: var(--font-body-XtraSmall-line-height);
+  letter-spacing: var(--font-body-XtraSmall-letter-spacing);
+  font-weight: var(--font-body-XtraSmall-weight);
+}
+
+
+// =================================
+// OnboardingStepsSection styles
+// =================================
+
+.stepCount {
+  font-size: var(--font-body-small-bold-size);
+  font-weight: var(--font-body-small-bold-weight);
+  line-height: var(--font-body-small-bold-line-height);
+  letter-spacing: var(--font-body-small-bold-letter-spacing);
+  color: var(--color-primary-500);
+}

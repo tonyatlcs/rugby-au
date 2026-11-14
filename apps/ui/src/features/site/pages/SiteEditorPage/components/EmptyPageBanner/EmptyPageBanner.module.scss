@@ -1,0 +1,21 @@
+.wrapper {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  height: 210px;
+  border: 2px dotted var(--color-greyscale-200);
+  border-radius: var(--radius-12);
+  padding: var(--spacing-16);
+  background-color: var(--color-greyscale-50);
+
+  & > span {
+    font-size: var(--font-body-XtraSmall-size);
+    line-height: var(--font-body-XtraSmall-line-height);
+    letter-spacing: var(--font-body-XtraSmall-letter-spacing);
+    font-weight: var(--font-body-XtraSmall-weight);
+    color: var(--color-greyscale-600);
+    text-align: center;
+  }
+}
