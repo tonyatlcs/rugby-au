@@ -4,19 +4,28 @@ import type {
   SectionComponent,
 } from "@rugby-au/contracts";
 
-/** Fields that can be updated on a section; props are merged shallowly. */
+/** Fields to update on a section. Props are merged shallowly; children replace the existing array. */
 export type SectionUpdates = {
   name?: string;
   props?: Partial<SectionComponent["props"]>;
   children?: SectionComponent["children"];
 };
 
+/** Card grid props to merge shallowly into an existing card grid. */
 export type CardGridUpdates = Partial<CardGridComponent["props"]>;
 
 type NodeUpdates =
   | { type: "section"; updates: SectionUpdates }
   | { type: "card-grid"; updates: CardGridUpdates };
 
+/**
+ * Finds the first section that directly contains a component with the given ID.
+ * Sections are searched depth-first; root nodes have no parent section.
+ *
+ * @param nodes - Root nodes to search.
+ * @param id - ID of the child component.
+ * @returns The parent section, or null if none is found.
+ */
 export const findParentSection = (
   nodes: ComponentNode[],
   id: string,
@@ -53,12 +62,15 @@ export const findComponent = (
 };
 
 /**
- * Returns a new tree with the matching node updated. Props are merged shallowly.
+ * Returns a new tree with nodes matching both the ID and change type updated.
+ * Props are merged shallowly. Section children, when supplied, replace the
+ * existing children; a card grid's title also updates its node name. A matched
+ * section's descendants are not searched for further matches.
  *
  * @param nodes - Root nodes to update.
  * @param id - ID of the node to update.
  * @param change - Node type and fields to apply.
- * @returns A new array containing the updated tree.
+ * @returns A new root array containing the updated tree, even if nothing matches.
  */
 export const updateNodeInTree = (
   nodes: ComponentNode[],
@@ -94,7 +106,13 @@ export const updateNodeInTree = (
       : node;
   });
 
-/** Removes a component and its descendants from the tree by ID. */
+/**
+ * Removes every component with the given ID, including its descendants.
+ *
+ * @param nodes - Root nodes to search.
+ * @param id - ID of the component to remove.
+ * @returns A new root array containing the remaining tree, even if nothing matches.
+ */
 export const deleteComponentFromTree = (
   nodes: ComponentNode[],
   id: string,

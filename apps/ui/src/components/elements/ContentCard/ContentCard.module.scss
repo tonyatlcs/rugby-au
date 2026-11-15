@@ -6,6 +6,7 @@
 }
 
 .media {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,7 +53,17 @@
 }
 
 .editorial {
-  border-radius: var(--radius-12);
+  border-radius: var(--radius-16);
+
+  h3 {
+    font-family: var(--editorial-heading-font), sans-serif;
+    font-stretch: 125%;
+    font-weight: 900;
+  }
+
+  .link {
+    color: var(--site-primary-color, #fa4602);
+  }
 }
 
 .promotional {
@@ -81,6 +92,7 @@
 
 .link {
   color: inherit;
+  text-decoration: none;
 }
 
 .visuallyHidden {

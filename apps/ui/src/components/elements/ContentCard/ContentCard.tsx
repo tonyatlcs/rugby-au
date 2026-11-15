@@ -2,16 +2,18 @@ import type { Card, SiteTheme } from "@rugby-au/contracts";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import styles from "@/components/elements/ImageCard/ImageCard.module.scss";
+import Image from "next/image";
+import { editorialFont } from "@/styles/fonts";
+import styles from "@/components/elements/ContentCard/ContentCard.module.scss";
 
 dayjs.extend(customParseFormat);
 
-type CardProps = Card & {
+type ContentCardProps = Card & {
   className?: string;
   siteStyle: SiteTheme["style"];
 };
 
-export const ImageCard = ({
+export const ContentCard = ({
   id,
   variant,
   siteStyle,
@@ -23,7 +25,7 @@ export const ImageCard = ({
   icon,
   backgroundColor,
   className,
-}: CardProps) => {
+}: ContentCardProps) => {
   const parsedDate = date ? dayjs(date, "YYYY-MM-DD", true) : null;
   const formattedDate = parsedDate?.isValid()
     ? parsedDate.format("D MMMM YYYY")
@@ -32,13 +34,23 @@ export const ImageCard = ({
   return (
     <article
       id={id}
-      className={clsx(styles.card, styles[siteStyle], className)}
+      className={clsx(
+        styles.card,
+        styles[siteStyle],
+        siteStyle === "editorial" && editorialFont.variable,
+        className,
+      )}
     >
       {variant === "image" && image?.url && (
         <div className={styles.media}>
-          {/* Card images may be hosted externally. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className={styles.image} src={image.url} alt={image.alt} />
+          <Image
+            className={styles.image}
+            src={image.url}
+            alt={image.alt}
+            fill
+            sizes="100vw"
+            unoptimized
+          />
         </div>
       )}
       {variant === "icon" && icon && (

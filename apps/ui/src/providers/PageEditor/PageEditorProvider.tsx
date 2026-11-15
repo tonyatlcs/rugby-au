@@ -8,7 +8,11 @@ import {
   type PageEditorRightPanelViewType,
 } from "@/providers/PageEditor/PageEditorContext";
 import { useState, type ReactNode } from "react";
-import type { CardGridComponent, ComponentNode, SectionComponent } from "@rugby-au/contracts";
+import type {
+  CardGridComponent,
+  ComponentNode,
+  SectionComponent,
+} from "@rugby-au/contracts";
 import {
   findComponent,
   deleteComponentFromTree,
@@ -50,7 +54,10 @@ export const PageEditorProvider: React.FC<PageEditorProviderProps> = ({
     );
   };
 
-  const addComponent: PageEditorContextProps["addComponent"] = (...[type, sectionId]) => {
+  const addComponent: PageEditorContextProps["addComponent"] = (
+    type,
+    sectionId,
+  ) => {
     const id = crypto.randomUUID();
 
     if (type === "section") {
@@ -65,6 +72,7 @@ export const PageEditorProvider: React.FC<PageEditorProviderProps> = ({
         props: { layout: "full", themeType: "none" },
         children: [],
       };
+
       setComponentTree((currentTree) => {
         if (!sectionId) return [...currentTree, section];
         const parent = findComponent(currentTree, sectionId);
@@ -75,7 +83,10 @@ export const PageEditorProvider: React.FC<PageEditorProviderProps> = ({
         });
       });
       selectComponent(section);
-    } else {
+    }
+
+    if (type === "card-grid") {
+      if (!sectionId) return;
       const section = findComponent(componentTree, sectionId);
       if (!section || section.type !== "section") return;
 
@@ -86,14 +97,17 @@ export const PageEditorProvider: React.FC<PageEditorProviderProps> = ({
         props: { id, title: "New card grid", cards: [] },
         children: [],
       };
+
       setComponentTree((currentTree) => {
         const currentSection = findComponent(currentTree, sectionId);
-        if (!currentSection || currentSection.type !== "section") return currentTree;
+        if (!currentSection || currentSection.type !== "section")
+          return currentTree;
         return updateNodeInTree(currentTree, sectionId, {
           type: "section",
           updates: { children: [...currentSection.children, grid] },
         });
       });
+
       selectComponent(grid);
     }
 
@@ -107,15 +121,20 @@ export const PageEditorProvider: React.FC<PageEditorProviderProps> = ({
   };
 
   const updateCardGrid = (id: string, updates: CardGridUpdates) => {
-    setComponentTree((currentTree) => updateNodeInTree(currentTree, id, { type: "card-grid", updates }));
+    setComponentTree((currentTree) =>
+      updateNodeInTree(currentTree, id, { type: "card-grid", updates }),
+    );
   };
 
   const deleteComponent = (id: string) => {
     const deletedComponent = findComponent(componentTree, id);
-    const removesSelection = selectedComponentId !== null && deletedComponent !== null && (
-      deletedComponent.id === selectedComponentId ||
-      (deletedComponent.type === "section" && findComponent(deletedComponent.children, selectedComponentId) !== null)
-    );
+    const removesSelection =
+      selectedComponentId !== null &&
+      deletedComponent !== null &&
+      (deletedComponent.id === selectedComponentId ||
+        (deletedComponent.type === "section" &&
+          findComponent(deletedComponent.children, selectedComponentId) !==
+            null));
     setComponentTree((currentTree) => deleteComponentFromTree(currentTree, id));
     if (removesSelection) {
       setSelectedComponentId(null);
