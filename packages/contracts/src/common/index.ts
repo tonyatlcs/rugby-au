@@ -17,3 +17,4 @@ export {
   type ComponentNode,
   type SectionComponent,
 } from "../routes/pages/common/component-node.schema.js";
+export { type SectionLayoutType } from "../routes/pages/common/section.schema.js";

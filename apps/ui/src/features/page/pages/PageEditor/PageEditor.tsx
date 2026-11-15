@@ -1,8 +1,11 @@
 "use client";
 
 import React from "react";
-import styles from "@/features/page/pages/PageEditor/PageEditor.module.scss";
+import { PageEditorFrame } from "@/features/page/components/PageEditorFrame/PageEditorFrame";
+import { usePageEditorManager } from "@/providers/PageEditor";
 
-export const PageEditor = () => {
-  return <div className={styles.wrapper}>placeholder</div>;
+export const PageEditor: React.FC = () => {
+  const { summary } = usePageEditorManager();
+
+  return <PageEditorFrame title={summary.title} />;
 };

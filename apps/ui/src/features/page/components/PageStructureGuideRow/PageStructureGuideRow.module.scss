@@ -1,0 +1,46 @@
+.level {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  padding: var(--spacing-12);
+  border: 1px solid var(--color-greyscale-100);
+  border-radius: var(--radius-8);
+
+  &.indentOne {
+    margin-left: var(--spacing-16);
+  }
+
+  &.indentTwo {
+    margin-left: var(--spacing-32);
+  }
+
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    flex: none;
+    border-radius: var(--radius-8);
+    color: var(--color-primary-500);
+    background: var(--color-primary-50);
+
+    &.pageIcon {
+      color: var(--color-greyscale-500);
+      background: var(--color-greyscale-50);
+    }
+  }
+
+  h4 {
+    font-size: var(--font-body-XtraSmall-bold-size);
+    line-height: var(--font-body-XtraSmall-bold-line-height);
+    font-weight: var(--font-body-XtraSmall-bold-weight);
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-greyscale-500);
+    font-size: var(--font-body-XtraSmall-size);
+    line-height: var(--font-body-XtraSmall-line-height);
+    overflow-wrap: anywhere;
+  }
+}

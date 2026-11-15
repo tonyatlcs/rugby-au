@@ -9,80 +9,33 @@
   flex-direction: column;
   gap: var(--spacing-16);
 
-  .card {
+  .notice,
+  .lockedMessage {
+    margin: 0;
+    color: var(--color-greyscale-500);
+    font-size: var(--font-body-XtraSmall-size);
+    line-height: var(--font-body-XtraSmall-line-height);
+    letter-spacing: var(--font-body-XtraSmall-letter-spacing);
+    font-weight: var(--font-body-XtraSmall-weight);
+  }
+
+  .buttonLabel {
+    font-size: var(--font-body-XtraSmall-bold-size);
+    line-height: var(--font-body-XtraSmall-bold-line-height);
+    letter-spacing: var(--font-body-XtraSmall-bold-letter-spacing);
+    font-weight: var(--font-body-XtraSmall-bold-weight);
+  }
+
+  .lockedMessage {
     display: flex;
-    flex-direction: column;
-    gap: var(--spacing-16);
-    padding: var(--spacing-16);
-    border: 1px solid var(--color-greyscale-100);
-    border-radius: var(--radius-16);
+    align-items: flex-start;
+    gap: var(--spacing-8);
+    padding: var(--spacing-12);
+    border-radius: var(--radius-8);
+    background: var(--color-greyscale-50);
 
-    .content {
-      display: flex;
-      align-items: flex-start;
-      gap: var(--spacing-16);
-
-      .icon,
-      .lockedIcon {
-        display: grid;
-        place-items: center;
-        width: 72px;
-        height: 72px;
-        flex: none;
-        border-radius: var(--radius-12);
-      }
-
-      .icon {
-        color: var(--color-primary-500);
-        background: var(--color-primary-50);
-      }
-
-      .lockedIcon {
-        color: var(--color-greyscale-400);
-        background: var(--color-greyscale-50);
-      }
-
-      .text {
-        min-width: 0;
-
-        h4 {
-          font-size: var(--font-body-small-bold-size);
-          line-height: var(--font-body-small-bold-line-height);
-          font-weight: var(--font-body-small-bold-weight);
-        }
-
-        .muted {
-          color: var(--color-greyscale-500);
-        }
-
-        p {
-          margin: var(--spacing-8) 0 0;
-          color: var(--color-greyscale-500);
-          font-size: var(--font-body-small-size);
-          line-height: var(--font-body-small-line-height);
-        }
-      }
-    }
-
-    .notice,
-    .lockedMessage {
-      margin: 0;
-      color: var(--color-greyscale-500);
-      font-size: var(--font-body-small-size);
-      line-height: var(--font-body-small-line-height);
-    }
-
-    .lockedMessage {
-      display: flex;
-      align-items: flex-start;
-      gap: var(--spacing-8);
-      padding: var(--spacing-12);
-      border-radius: var(--radius-8);
-      background: var(--color-greyscale-50);
-
-      svg {
-        flex: none;
-      }
+    svg {
+      flex: none;
     }
   }
 }

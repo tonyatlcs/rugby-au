@@ -3,13 +3,12 @@
 import { TopNav } from "@/components/elements/TopNav/TopNav";
 import { Tag } from "@/components/elements/Tag/Tag";
 import { usePageEditorManager } from "@/providers/PageEditor";
-import React, { useState, type ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import styles from "@/features/page/layouts/PageEditorLayout/PageEditorLayout.module.scss";
 import { Button } from "@/components/controls/Button";
 import { Eye } from "lucide-react";
-import { SideNav } from "@/components/elements/SideNav/SideNav";
-import { Tab } from "@/components/elements/Tabs/Tab";
 import { PageEditorLeftControlPanel } from "@/features/page/components/PageEditorLeftControlPanel/PageEditorLeftControlPanel";
+import { PageEditorRightControlPanel } from "@/features/page/components/PageEditorRightControlPanel/PageEditorRightControlPanel";
 
 interface PageEditorLayoutProps {
   children: ReactNode;
@@ -19,7 +18,6 @@ export const PageEditorLayout: React.FC<PageEditorLayoutProps> = ({
   children,
 }) => {
   const { summary } = usePageEditorManager();
-  const [rightTab, setRightTab] = useState("addComponents");
 
   return (
     <div className={styles.layout}>
@@ -69,16 +67,7 @@ export const PageEditorLayout: React.FC<PageEditorLayoutProps> = ({
       <div className={styles.body}>
         <PageEditorLeftControlPanel />
         <main className={styles.body}>{children}</main>
-        <SideNav orientation="right" footer={<>Footer</>}>
-          <Tab
-            tabs={[
-              { label: "Page Structure", value: "pageStructure" },
-              { label: "Add components", value: "addComponents" },
-            ]}
-            value={rightTab}
-            onChange={setRightTab}
-          />
-        </SideNav>
+        <PageEditorRightControlPanel />
       </div>
     </div>
   );

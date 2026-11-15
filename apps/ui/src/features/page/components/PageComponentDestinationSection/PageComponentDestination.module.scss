@@ -4,8 +4,10 @@
   border: 1px solid var(--color-primary-200);
   border-radius: var(--radius-16);
   background: var(--color-primary-50);
-  font-size: var(--font-body-small-size);
-  line-height: var(--font-body-small-line-height);
+  font-size: var(--font-body-XtraSmall-size);
+  line-height: var(--font-body-XtraSmall-line-height);
+  letter-spacing: var(--font-body-XtraSmall-letter-spacing);
+  font-weight: var(--font-body-XtraSmall-weight);
 
   .label {
     color: var(--color-greyscale-500);
@@ -17,7 +19,10 @@
     gap: var(--spacing-8);
     margin-top: var(--spacing-4);
     color: var(--color-primary-500);
-    font-weight: var(--font-body-small-bold-weight);
+    font-size: var(--font-body-XtraSmall-bold-size);
+    line-height: var(--font-body-XtraSmall-bold-line-height);
+    letter-spacing: var(--font-body-XtraSmall-bold-letter-spacing);
+    font-weight: var(--font-body-XtraSmall-bold-weight);
 
     .icon {
       display: grid;

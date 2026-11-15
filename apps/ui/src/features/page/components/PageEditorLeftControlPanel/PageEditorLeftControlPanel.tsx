@@ -1,15 +1,20 @@
 "use client";
 
-import { useState } from "react";
 import { SideNav } from "@/components/elements/SideNav/SideNav";
 import { Tab } from "@/components/elements/Tabs/Tab";
 import { PageTreeSection } from "@/features/page/components/PageTreeSection/PageTreeSection";
 import { PageComponentDestinationSection } from "@/features/page/components/PageComponentDestinationSection/PageComponentDestinationSection";
 import { PageComponentSection } from "@/features/page/components/PageComponentsSection/PageComponentSection";
 import styles from "./PageEditorLeftControlPanel.module.scss";
+import { usePageEditorManager } from "@/providers/PageEditor";
 
 export const PageEditorLeftControlPanel = () => {
-  const [tab, setTab] = useState<string>("pageStructure");
+  const {
+    pageEditorLeftPanelView,
+    setPageEditorLeftPanelView,
+    setPageEditorRightPanelView,
+    addNewSection,
+  } = usePageEditorManager();
 
   return (
     <SideNav orientation="left">
@@ -19,17 +24,28 @@ export const PageEditorLeftControlPanel = () => {
             { label: "Page Structure", value: "pageStructure" },
             { label: "Add components", value: "addComponents" },
           ]}
-          value={tab}
-          onChange={setTab}
+          value={pageEditorLeftPanelView}
+          onChange={(value) => {
+            if (value === "pageStructure" || value === "addComponents") {
+              setPageEditorLeftPanelView(value);
+            }
+          }}
         />
       </div>
 
-      {tab === "pageStructure" ? (
-        <PageTreeSection onAddSection={() => setTab("addComponents")} />
+      {pageEditorLeftPanelView === "pageStructure" ? (
+        <PageTreeSection
+          onAddSection={() => setPageEditorLeftPanelView("addComponents")}
+        />
       ) : (
         <>
           <PageComponentDestinationSection />
-          <PageComponentSection />
+          <PageComponentSection
+            onAddSection={() => {
+              addNewSection();
+              setPageEditorRightPanelView("sectionConfig");
+            }}
+          />
         </>
       )}
     </SideNav>

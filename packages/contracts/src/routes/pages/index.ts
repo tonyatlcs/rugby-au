@@ -10,3 +10,4 @@ export {
   type RetrievePageParam,
   type RetrievePageResponse,
 } from "./retrieve-page.schema.js";
+export * from "./common/index.js";
