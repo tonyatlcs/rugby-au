@@ -1,6 +1,6 @@
 "use client";
 
-import { Network, Plus, Scan } from "lucide-react";
+import { Network, Plus } from "lucide-react";
 import { Bubble } from "@/components/elements/Bubble/Bubble";
 import styles from "@/features/site/pages/SiteEditorPage/SiteEditorPage.module.scss";
 import { PageNode } from "@/components/elements/PageNode/PageNode";
@@ -30,11 +30,6 @@ export const SiteEditorPage: React.FC = () => {
           icon={<Network color="var(--color-primary-500)" strokeWidth={2} />}
           title="Site map"
           description="View and organise your pages."
-        />
-        <Bubble
-          variant="action"
-          icon={<Scan strokeWidth={2} size={16} />}
-          label="Fit to view"
         />
       </section>
 
