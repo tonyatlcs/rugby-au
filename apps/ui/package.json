@@ -14,6 +14,7 @@
     "@rugby-au/contracts": "workspace:*",
     "@sinclair/typebox": "^0.34.52",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.23",
     "framer-motion": "^14.11.1",
     "http-errors": "^2.0.1",
     "lucide-react": "^1.70.0",

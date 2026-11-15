@@ -54,6 +54,10 @@ export const PageEditorProvider: React.FC<PageEditorProviderProps> = ({
     const id = crypto.randomUUID();
 
     if (type === "section") {
+      if (sectionId) {
+        const parent = findComponent(componentTree, sectionId);
+        if (!parent || parent.type !== "section") return;
+      }
       const section: SectionComponent = {
         id,
         name: "New section",
@@ -61,7 +65,15 @@ export const PageEditorProvider: React.FC<PageEditorProviderProps> = ({
         props: { layout: "full", themeType: "none" },
         children: [],
       };
-      setComponentTree((currentTree) => [...currentTree, section]);
+      setComponentTree((currentTree) => {
+        if (!sectionId) return [...currentTree, section];
+        const parent = findComponent(currentTree, sectionId);
+        if (!parent || parent.type !== "section") return currentTree;
+        return updateNodeInTree(currentTree, sectionId, {
+          type: "section",
+          updates: { children: [...parent.children, section] },
+        });
+      });
       selectComponent(section);
     } else {
       const section = findComponent(componentTree, sectionId);

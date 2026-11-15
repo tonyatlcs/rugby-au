@@ -90,7 +90,7 @@ export const PageEditorLayout: React.FC<PageEditorLayoutProps> = ({
 
       <div className={styles.body}>
         <PageEditorLeftControlPanel />
-        <main className={styles.body}>{children}</main>
+        <main className={styles.content}>{children}</main>
         <PageEditorRightControlPanel />
       </div>
     </div>

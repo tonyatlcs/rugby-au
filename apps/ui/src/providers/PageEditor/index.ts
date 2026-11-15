@@ -1,3 +1,3 @@
-export { PageEditorProvider } from "./PageEditorProvider";
-export { usePageEditorManager } from "./usePageEditorManager";
-export type { PageEditorContextProps } from "./PageEditorContext";
+export { PageEditorProvider } from "@/providers/PageEditor/PageEditorProvider";
+export { usePageEditorManager } from "@/providers/PageEditor/usePageEditorManager";
+export type { PageEditorContextProps } from "@/providers/PageEditor/PageEditorContext";

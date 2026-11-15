@@ -21,7 +21,7 @@ export type PageEditorContextProps = PageResponse & {
   pageEditorRightPanelView: PageEditorRightPanelViewType;
   setPageEditorLeftPanelView: (view: PageEditorLeftPanelView) => void;
   setPageEditorRightPanelView: (view: PageEditorRightPanelViewType) => void;
-  addComponent: (...args: [type: "section"] | [type: "card-grid", sectionId: string]) => void;
+  addComponent: (...args: [type: "section", sectionId?: string] | [type: "card-grid", sectionId: string]) => void;
   selectComponent: (component: ComponentNode) => void;
   updateSection: (id: string, updates: SectionUpdates) => void;
   updateCardGrid: (id: string, updates: CardGridUpdates) => void;

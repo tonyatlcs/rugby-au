@@ -1,4 +1,5 @@
 import { Type, type Static } from "@sinclair/typebox";
+import { SiteThemeStyleSchema } from "@/common/site-theme.schema.js";
 
 export const CardVariantSchema = Type.Union([
   Type.Literal("image"),
@@ -24,6 +25,8 @@ export type CardLink = Static<typeof CardLinkSchema>;
 export const CardSchema = Type.Object({
   id: Type.String(),
   variant: CardVariantSchema,
+  styleVariant: Type.Optional(SiteThemeStyleSchema),
+  date: Type.Optional(Type.String()),
   heading: Type.String(),
   subHeading: Type.Optional(Type.String()),
   link: Type.Optional(CardLinkSchema),

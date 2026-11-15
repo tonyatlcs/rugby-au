@@ -1,6 +1,6 @@
 import React, { type ReactNode } from "react";
 import clsx from "clsx";
-import styles from "./PageComponentCard.module.scss";
+import styles from "@/features/page/components/PageComponentCard/PageComponentCard.module.scss";
 
 interface PageComponentCardProps {
   title: string;

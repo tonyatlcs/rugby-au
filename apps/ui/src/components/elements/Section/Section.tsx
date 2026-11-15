@@ -1,16 +1,15 @@
 import { Children, type ReactNode } from "react";
 import type { Section as SectionConfig } from "@rugby-au/contracts";
 import clsx from "clsx";
-import styles from "./Section.module.scss";
+import styles from "@/components/elements/Section/Section.module.scss";
 
 interface SectionProps extends SectionConfig {
-  // headerLabel: string;
   children?: ReactNode;
   renderEmptySlot?: (index: number, columnCount: number) => ReactNode;
 }
 
 export const Section = ({
-  // headerLabel,
+  headerLabel,
   layout,
   themeType,
   children,
@@ -25,7 +24,7 @@ export const Section = ({
       <div
         className={clsx(styles.content, layout !== "full" && styles[layout])}
       >
-        {/* <h3>{headerLabel}</h3> */}
+        {headerLabel && <h3 className={styles.heading}>{headerLabel}</h3>}
         {children}
         {renderEmptySlot &&
           Array.from({ length: emptySlots }, (_, index) =>

@@ -6,11 +6,11 @@
 .none { background: transparent; }
 .light {
   background: var(--site-light-background-color, #eef5ff);
-  color: var(--site-light-text-color, #202536);
+  color: var(--site-brand-text-color, #000000);
 }
 .brand {
   background: var(--site-primary-color, #fa4602);
-  color: var(--site-brand-text-color, #000000);
+  color: var(--site-light-text-color, #202536);
 }
 
 .content {
@@ -19,6 +19,13 @@
   gap: var(--site-section-gap, 24px);
   max-width: var(--site-content-width, 1200px);
   margin-inline: auto;
+}
+
+.heading {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-family: var(--site-font-family, inherit);
+  color: inherit;
 }
 
 @container (min-width: 600px) {

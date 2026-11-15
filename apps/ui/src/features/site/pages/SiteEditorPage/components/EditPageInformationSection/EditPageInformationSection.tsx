@@ -5,7 +5,7 @@ import { DropdownInput } from "@/components/controls/DropdownInput";
 import { TextInput } from "@/components/controls/TextInput";
 import { SideNavSection } from "@/components/elements/SideNav/SideNavSection/SideNavSection";
 import type { PageInformation } from "@/lib/server/schemas/page.schema";
-import styles from "./EditPageInformationSection.module.scss";
+import styles from "@/features/site/pages/SiteEditorPage/components/EditPageInformationSection/EditPageInformationSection.module.scss";
 
 interface EditPageInformationSectionProps {
   page: PageInformation;

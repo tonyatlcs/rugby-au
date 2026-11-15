@@ -3,10 +3,9 @@
   flex-direction: column;
   width: 100%;
   min-width: 0;
-  min-height: 0;
+  min-height: 100%;
   padding: var(--spacing-24) var(--spacing-24) 0;
   background-color: var(--color-greyscale-50);
-  overflow: auto;
 
   .pageTab {
     display: inline-flex;
@@ -36,8 +35,7 @@
   }
 
   .page {
-    flex: 1;
-    min-height: 0;
+    flex: 1 0 auto;
     border: 1px solid var(--color-greyscale-100);
     background: var(--site-background-color, #fff);
     color: var(--site-text-color, #202536);

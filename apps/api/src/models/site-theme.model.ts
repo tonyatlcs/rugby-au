@@ -11,6 +11,14 @@ export class SiteThemeModel {
   @prop({
     type: String,
     required: true,
+    enum: ["editorial", "promotional"],
+    default: "editorial",
+  })
+  style!: "editorial" | "promotional";
+
+  @prop({
+    type: String,
+    required: true,
     default: "#fa4602",
     match: hexColorRegex,
   })

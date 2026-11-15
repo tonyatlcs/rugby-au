@@ -28,6 +28,7 @@
 }
 
 .body { padding: 0 var(--spacing-16); }
+.contentActions { display: flex; flex-direction: column; gap: var(--spacing-12); }
 
 .hint { margin: var(--spacing-8) 0 0; color: var(--color-greyscale-500); font-size: var(--font-body-XtraSmall-size); line-height: var(--font-body-XtraSmall-line-height); }
 .layoutOptions, .themeOptions { display: grid; gap: var(--spacing-12); }

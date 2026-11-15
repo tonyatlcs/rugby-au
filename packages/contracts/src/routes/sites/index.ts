@@ -3,10 +3,10 @@ export {
   ListSitesResponseSchema,
   type ListSitesItem,
   type ListSitesResponse,
-} from "./list-sites.js";
+} from "@/routes/sites/list-sites.js";
 export {
   RetrieveSiteParamSchema,
   RetrieveSiteResponseSchema,
   type RetrieveSiteParam,
   type RetrieveSiteResponse,
-} from "./retrieve-site.schema.js";
+} from "@/routes/sites/retrieve-site.schema.js";

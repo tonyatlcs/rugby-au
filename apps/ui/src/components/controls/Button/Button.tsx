@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./Button.module.scss"
+import styles from "@/components/controls/Button/Button.module.scss"
 import clsx from 'clsx'
 import {
   type CSSProperties,

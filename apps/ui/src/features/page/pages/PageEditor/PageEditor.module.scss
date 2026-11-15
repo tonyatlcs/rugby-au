@@ -45,3 +45,21 @@
   opacity: 0.65;
   text-align: center;
 }
+
+.cardGrid {
+  min-width: 0;
+
+  > h3 {
+    margin: 0 0 var(--spacing-16);
+  }
+}
+
+.cards {
+  display: flex;
+  gap: var(--spacing-12);
+  overflow-x: auto;
+
+  > * {
+    flex: 1 0 min(100%, 240px);
+  }
+}

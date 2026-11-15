@@ -4,7 +4,7 @@ import type { ComponentNode } from "@rugby-au/contracts";
 import { SideNavSection } from "@/components/elements/SideNav/SideNavSection/SideNavSection";
 import { PageTree } from "@/features/page/components/PageTree/PageTree";
 import { usePageEditorManager } from "@/providers/PageEditor";
-import styles from "./PageTreeSection.module.scss";
+import styles from "@/features/page/components/PageTreeSection/PageTreeSection.module.scss";
 
 function countComponents(components: ComponentNode[]): number {
   return components.reduce(

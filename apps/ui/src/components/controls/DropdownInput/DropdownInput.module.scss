@@ -40,6 +40,9 @@
 .chevron { display: flex; flex-shrink: 0; }
 .options {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
   top: calc(100% + var(--spacing-4));
   left: 0;
   z-index: 10;

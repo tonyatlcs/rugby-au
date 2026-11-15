@@ -1,1 +1,1 @@
-export { DropdownInput, type DropdownInputOption, type DropdownInputProps } from "./DropdownInput";
+export { DropdownInput, type DropdownInputOption, type DropdownInputProps } from "@/components/controls/DropdownInput/DropdownInput";

@@ -10,8 +10,8 @@ import {
 } from "lucide-react";
 import { SideNavSection } from "@/components/elements/SideNav/SideNavSection/SideNavSection";
 import { usePageEditorManager } from "@/providers/PageEditor";
-import { PageStructureGuideRow } from "../PageStructureGuideRow/PageStructureGuideRow";
-import styles from "./PagePropertiesEmptyState.module.scss";
+import { PageStructureGuideRow } from "@/features/page/components/PageStructureGuideRow/PageStructureGuideRow";
+import styles from "@/features/page/components/PagePropertiesEmptyState/PagePropertiesEmptyState.module.scss";
 
 export const PagePropertiesEmptyState: React.FC = () => {
   const { summary } = usePageEditorManager();

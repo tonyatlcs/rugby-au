@@ -1,1 +1,1 @@
-export { TextInput, type TextInputProps } from "./TextInput";
+export { TextInput, type TextInputProps } from "@/components/controls/TextInput/TextInput";

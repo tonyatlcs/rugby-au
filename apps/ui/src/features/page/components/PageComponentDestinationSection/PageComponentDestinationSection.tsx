@@ -4,7 +4,7 @@ import React from "react";
 import { FileText } from "lucide-react";
 import { SideNavSection } from "@/components/elements/SideNav/SideNavSection/SideNavSection";
 import { usePageEditorManager } from "@/providers/PageEditor";
-import styles from "./PageComponentDestination.module.scss";
+import styles from "@/features/page/components/PageComponentDestinationSection/PageComponentDestination.module.scss";
 
 export const PageComponentDestinationSection: React.FC = () => {
   const { summary, componentTree } = usePageEditorManager();

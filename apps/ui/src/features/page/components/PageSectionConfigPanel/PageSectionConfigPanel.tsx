@@ -5,8 +5,8 @@ import type { CSSProperties } from "react";
 import { SideNavSection } from "@/components/elements/SideNav/SideNavSection/SideNavSection";
 import { usePageEditorManager } from "@/providers/PageEditor";
 import { ComponentEditorDetails } from "@/features/page/components/ComponentEditorDetails/ComponentEditorDetails";
-import { getSectionConfigGroups } from "./PageSectionConfigPanel.data";
-import styles from "./PageSectionConfigPanel.module.scss";
+import { getSectionConfigGroups } from "@/features/page/components/PageSectionConfigPanel/PageSectionConfigPanel.data";
+import styles from "@/features/page/components/PageSectionConfigPanel/PageSectionConfigPanel.module.scss";
 
 export const PageSectionConfigPanel = () => {
   const { selectedComponent, updateSection, addComponent, siteTheme } =

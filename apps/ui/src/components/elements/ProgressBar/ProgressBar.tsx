@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import type { ComponentPropsWithoutRef } from "react";
-import styles from "./ProgressBar.module.scss";
+import styles from "@/components/elements/ProgressBar/ProgressBar.module.scss";
 
 interface ProgressBarProps extends Omit<ComponentPropsWithoutRef<"progress">, "value" | "max"> {
   value: number;

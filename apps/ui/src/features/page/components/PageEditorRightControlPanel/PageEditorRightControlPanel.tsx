@@ -8,7 +8,7 @@ import { PagePropertiesEmptyState } from "@/features/page/components/PagePropert
 import { usePageEditorManager } from "@/providers/PageEditor";
 import { PageSectionConfigPanel } from "@/features/page/components/PageSectionConfigPanel/PageSectionConfigPanel";
 import { PageCardGridConfigPannel } from "@/features/page/components/PageCardGridConfigPannel/PageCardGridConfigPannel";
-import styles from "./PageEditorRightControlPanel.module.scss";
+import styles from "@/features/page/components/PageEditorRightControlPanel/PageEditorRightControlPanel.module.scss";
 
 export const PageEditorRightControlPanel: React.FC = () => {
   const { pageEditorRightPanelView, selectedComponent, deleteComponent } =

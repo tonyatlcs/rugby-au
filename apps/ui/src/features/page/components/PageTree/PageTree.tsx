@@ -5,7 +5,7 @@ import type { ComponentNode } from "@rugby-au/contracts";
 import { Button } from "@/components/controls/Button";
 import { PageTreeNode } from "@/features/page/components/PageTreeNode/PageTreeNode";
 import React from "react";
-import styles from "./PageTree.module.scss";
+import styles from "@/features/page/components/PageTree/PageTree.module.scss";
 
 interface PageTreeProps {
   title: string;

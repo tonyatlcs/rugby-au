@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronDown, CircleExclamationPoint } from "lucide-react";
 import { useId, useRef, useState, type ReactNode } from "react";
-import styles from "./DropdownInput.module.scss";
+import styles from "@/components/controls/DropdownInput/DropdownInput.module.scss";
 
 export type DropdownInputOption<T extends string | number = string | number> = {
   label: string;

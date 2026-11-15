@@ -2,7 +2,7 @@
 
 import { ChevronDown } from "lucide-react";
 import type { ReactNode } from "react";
-import styles from "./ComponentEditorDetails.module.scss";
+import styles from "@/features/page/components/ComponentEditorDetails/ComponentEditorDetails.module.scss";
 
 interface ComponentEditorDetailsProps {
   title: string;

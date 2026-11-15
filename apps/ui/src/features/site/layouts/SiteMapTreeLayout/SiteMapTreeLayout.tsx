@@ -7,7 +7,7 @@ import type {
 } from "@/lib/server/schemas/page.schema";
 import { useSyncExternalStore } from "react";
 import Tree, { type RawNodeDatum } from "react-d3-tree";
-import styles from "./SiteMapTreeLayout.module.scss";
+import styles from "@/features/site/layouts/SiteMapTreeLayout/SiteMapTreeLayout.module.scss";
 
 const subscribe = () => () => {};
 const getClientSnapshot = () => true;

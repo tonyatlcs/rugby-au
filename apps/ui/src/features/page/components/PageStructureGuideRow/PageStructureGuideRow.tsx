@@ -1,6 +1,6 @@
 import React, { type ReactNode } from "react";
 import clsx from "clsx";
-import styles from "./PageStructureGuideRow.module.scss";
+import styles from "@/features/page/components/PageStructureGuideRow/PageStructureGuideRow.module.scss";
 
 interface PageStructureGuideRowProps {
   title: string;

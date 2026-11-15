@@ -7,7 +7,7 @@ import type {
   SectionComponent,
 } from "@rugby-au/contracts";
 import type { PageEditorContextProps } from "@/providers/PageEditor/PageEditorContext";
-import styles from "./PageSectionConfigPanel.module.scss";
+import styles from "@/features/page/components/PageSectionConfigPanel/PageSectionConfigPanel.module.scss";
 
 const layouts: {
   value: SectionConfig["layout"];
@@ -44,6 +44,17 @@ export const getSectionConfigGroups = (
             }
           />
           <p className={styles.hint}>Only visible in the page structure.</p>
+          <TextInput
+            label="Section title"
+            width="100%"
+            clearable={false}
+            value={selectedSection.props.headerLabel ?? ""}
+            onChange={(event) =>
+              updateSection(selectedSection.id, {
+                props: { headerLabel: event.target.value },
+              })
+            }
+          />
         </>
       ),
     },
@@ -128,6 +139,7 @@ export const getSectionConfigGroups = (
     {
       title: "Content",
       content: (
+        <div className={styles.contentActions}>
         <Button
           type="button"
           buttonColor="secondary"
@@ -136,8 +148,19 @@ export const getSectionConfigGroups = (
           startAdornment={<Plus size={16} aria-hidden="true" />}
           onClick={() => addComponent("card-grid", selectedSection.id)}
         >
-          Add content to this section
+          Add card grid
         </Button>
+        <Button
+          type="button"
+          buttonColor="secondary"
+          buttonSize="medium"
+          fullWidth
+          startAdornment={<Plus size={16} aria-hidden="true" />}
+          onClick={() => addComponent("section", selectedSection.id)}
+        >
+          Add section inside this section
+        </Button>
+        </div>
       ),
     },
   ];

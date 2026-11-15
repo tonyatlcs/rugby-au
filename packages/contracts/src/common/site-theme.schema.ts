@@ -1,6 +1,14 @@
 import { Type, type Static } from "@sinclair/typebox";
 
+export const SiteThemeStyleSchema = Type.Union([
+  Type.Literal("editorial"),
+  Type.Literal("promotional"),
+]);
+
+export type SiteThemeStyle = Static<typeof SiteThemeStyleSchema>;
+
 export const SiteThemeSchema = Type.Object({
+  style: SiteThemeStyleSchema,
   primaryColor: Type.String({ maxLength: 7 }),
   backgroundColor: Type.String({ maxLength: 7 }),
   lightBackgroundColor: Type.String({ maxLength: 7 }),

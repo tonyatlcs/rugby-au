@@ -4,7 +4,7 @@ import type { ComponentNode } from "@rugby-au/contracts";
 import { usePageEditorManager } from "@/providers/PageEditor";
 import clsx from "clsx";
 import { Check, Grid2X2, Square } from "lucide-react";
-import styles from "./PageTreeNode.module.scss";
+import styles from "@/features/page/components/PageTreeNode/PageTreeNode.module.scss";
 
 interface PageTreeNodeProps {
   component: ComponentNode;

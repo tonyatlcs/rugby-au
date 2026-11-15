@@ -2,8 +2,8 @@
 
 import { X } from "lucide-react";
 import { useState } from "react";
-import { BaseInput, type BaseInputProps } from "../BaseInput";
-import styles from "./TextInput.module.scss";
+import { BaseInput, type BaseInputProps } from "@/components/controls/BaseInput";
+import styles from "@/components/controls/TextInput/TextInput.module.scss";
 
 export interface TextInputProps extends Omit<
   BaseInputProps,

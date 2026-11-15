@@ -7,7 +7,7 @@ import { SideNavSection } from "@/components/elements/SideNav/SideNavSection/Sid
 import { PageComponentCard } from "@/features/page/components/PageComponentCard/PageComponentCard";
 import { usePageEditorManager } from "@/providers/PageEditor";
 import { findParentSection } from "@/lib/utils/component-tree-utils";
-import styles from "./PageComponentSection.module.scss";
+import styles from "@/features/page/components/PageComponentsSection/PageComponentSection.module.scss";
 
 interface PageComponentSectionProps {
   onAddSection?: () => void;

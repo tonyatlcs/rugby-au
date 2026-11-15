@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import type { ComponentProps, CSSProperties } from "react";
-import styles from "./Form.module.scss";
+import styles from "@/components/controls/Form/Form.module.scss";
 
 export interface FormProps extends ComponentProps<"form"> {
   disabled?: boolean;

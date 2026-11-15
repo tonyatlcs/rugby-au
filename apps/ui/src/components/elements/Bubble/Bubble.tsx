@@ -1,6 +1,6 @@
 import type { MouseEventHandler, ReactNode } from "react";
 import clsx from "clsx";
-import styles from "./Bubble.module.scss";
+import styles from "@/components/elements/Bubble/Bubble.module.scss";
 
 type BubbleProps = {
   icon: ReactNode;

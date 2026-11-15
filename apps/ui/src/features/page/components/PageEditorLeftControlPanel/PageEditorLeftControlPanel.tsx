@@ -5,7 +5,7 @@ import { Tab } from "@/components/elements/Tabs/Tab";
 import { PageTreeSection } from "@/features/page/components/PageTreeSection/PageTreeSection";
 import { PageComponentDestinationSection } from "@/features/page/components/PageComponentDestinationSection/PageComponentDestinationSection";
 import { PageComponentSection } from "@/features/page/components/PageComponentsSection/PageComponentSection";
-import styles from "./PageEditorLeftControlPanel.module.scss";
+import styles from "@/features/page/components/PageEditorLeftControlPanel/PageEditorLeftControlPanel.module.scss";
 import { usePageEditorManager } from "@/providers/PageEditor";
 
 export const PageEditorLeftControlPanel = () => {

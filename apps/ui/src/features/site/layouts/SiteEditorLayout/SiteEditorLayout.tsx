@@ -3,7 +3,7 @@
 import { TopNav } from "@/components/elements/TopNav/TopNav";
 import type { ReactNode } from "react";
 import { SideNav } from "@/components/elements/SideNav/SideNav";
-import styles from "./SiteEditorLayout.module.scss";
+import styles from "@/features/site/layouts/SiteEditorLayout/SiteEditorLayout.module.scss";
 import { useSiteEditorManager } from "@/providers/SiteEditor";
 import { EditPageInformationSection } from "@/features/site/pages/SiteEditorPage/components/EditPageInformationSection/EditPageInformationSection";
 import { PageStructureSection } from "@/features/site/pages/SiteEditorPage/components/PageStructureSection/PageStructureSection";

@@ -17,6 +17,7 @@ export const SectionThemeTypeSchema = Type.Union([
 export type SectionThemeType = Static<typeof SectionThemeTypeSchema>;
 
 export const SectionSchema = Type.Object({
+  headerLabel: Type.Optional(Type.String()),
   layout: SectionLayoutTypeSchema,
   themeType: SectionThemeTypeSchema,
 });

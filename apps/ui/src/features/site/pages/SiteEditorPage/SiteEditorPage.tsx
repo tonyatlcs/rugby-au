@@ -2,7 +2,7 @@
 
 import { Network, Plus, Scan } from "lucide-react";
 import { Bubble } from "@/components/elements/Bubble/Bubble";
-import styles from "./SiteEditorPage.module.scss";
+import styles from "@/features/site/pages/SiteEditorPage/SiteEditorPage.module.scss";
 import { PageNode } from "@/components/elements/PageNode/PageNode";
 import type { SiteInformation } from "@/lib/server/schemas/site.schema";
 import type { PageTree } from "@/lib/server/schemas/page.schema";

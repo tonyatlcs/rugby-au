@@ -9,7 +9,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from "react";
-import styles from "./BaseInput.module.scss";
+import styles from "@/components/controls/BaseInput/BaseInput.module.scss";
 
 export interface BaseInputProps extends Omit<
   ComponentPropsWithRef<"input">,

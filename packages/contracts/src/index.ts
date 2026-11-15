@@ -1,2 +1,2 @@
-export * from "./common/index.js";
-export * from "./routes/index.js";
+export * from "@/common/index.js";
+export * from "@/routes/index.js";

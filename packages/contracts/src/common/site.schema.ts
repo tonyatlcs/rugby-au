@@ -1,5 +1,5 @@
 import { Type, type Static } from "@sinclair/typebox";
-import { SiteThemeSchema } from "./site-theme.schema.js";
+import { SiteThemeSchema } from "@/common/site-theme.schema.js";
 
 export const SiteStatusSchema = Type.Union([
   Type.Literal("draft"),

@@ -1,5 +1,5 @@
 import { Type, type Static } from "@sinclair/typebox";
-import { PageSchema, SiteSchema } from "../../common/index.js";
+import { PageSchema, SiteSchema } from "@/common/index.js";
 
 export const RetrieveSiteParamSchema = Type.Object({
   siteId: Type.String(),

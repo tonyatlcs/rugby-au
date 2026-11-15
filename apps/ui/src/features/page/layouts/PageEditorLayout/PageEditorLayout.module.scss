@@ -27,7 +27,9 @@
     .content {
       flex: 1;
       min-width: 0;
-      overflow: auto;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: auto;
     }
 
     .footerWrapper {
