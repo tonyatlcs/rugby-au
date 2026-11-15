@@ -1,63 +1,97 @@
-# rugby-au
-This project showcases a demo of a website builder
+# Rugby AU website builder
 
-All workspaces extend the root `tsconfig.base.json`, which defines `@/*` for
-each workspace's own `src/` directory.
-Add or update shared aliases in that root file. The API overrides these aliases
-with explicit TypeScript extensions for NodeNext resolution; keep its mappings in
-sync with the shared aliases. Keep imports between workspaces using package
-names, such as `@rugby-au/contracts`.
+A demo website builder for two sites: Rugby AU and Wallabies. The repository contains:
 
-The UI resolves these
-imports through Next.js. Run the API with `pnpm --filter api dev` and use
-extensionless API imports such as `@/services/example`. The API build rewrites
-aliases into relative ESM imports for Node.js.
+- `apps/ui` — the Next.js editor and site pages.
+- `apps/api` — the Fastify API and MongoDB models and migrations.
+- `packages/contracts` — shared page, site and API schemas.
+- `apps/api/migrations/20261110092951-seed-default-site.ts` — the initial site seed.
 
-See [the API README](apps/api/README.md) for linting, formatting, and
-TypeScript configuration details.
+The migrations seed both sites and a home page with a section and card grid for each. Existing sites and home pages are left unchanged. The page seed is in `apps/api/migrations/20261116000002-seed-example-pages.ts`.
 
-## Shared API contracts
+## Run locally
 
-`packages/contracts` is the `@rugby-au/contracts` workspace package. It owns the
-public TypeBox response schemas and derives TypeScript types from those schemas.
-Both apps depend on it through `workspace:*`; database models stay in the API.
-
-Reusable schemas live in `src/common/` (for example, `site.ts` and
-`site-theme.ts`). Each route has its own contract file in `src/routes/`
-(for example, `list-sites.ts` and `health.ts`). `src/index.ts` exports the public
-schemas and types so both apps can import from the package root.
-
-```ts
-import { ListSitesResponseSchema } from "@rugby-au/contracts";
-import type { ListSitesResponse, Site } from "@rugby-au/contracts";
-```
-
-App dev, build, and typecheck commands build the contracts first. When
-editing contracts during an active dev session, run
-`pnpm --filter @rugby-au/contracts dev` in another terminal to watch for changes;
-restart an app if its dev server does not pick up the rebuilt package.
-Type annotations alone do not validate JSON received over HTTP.
-
-## Git hooks
-
-Run `pnpm install` from the repository root to install dependencies and activate
-Husky through the `prepare` script. If dependencies are already installed, run
-`pnpm prepare` to activate the hooks.
-
-The pre-commit hook runs both lint scripts:
+You need Node.js, pnpm 10.28.0 and a running MongoDB instance. Run these commands from the repository root:
 
 ```bash
-pnpm --filter api lint
-pnpm --filter ui lint
+pnpm install
+cp apps/api/.env.example apps/api/.env
 ```
 
-A failed lint command blocks the commit. Run `pnpm check` for the full checks in both projects:
+Set `MONGODB_URI` in `apps/api/.env` if your MongoDB address differs from the example. Then create the collections and seed the sites:
 
-- API: type checking, ESLint, Prettier checks, and a production build.
-- UI: type checking, ESLint, and a production build.
+```bash
+pnpm --filter api migrate:up
+```
 
-The full check command checks both projects even if one fails.
-Checks do not automatically format or stage files; use
-`pnpm --filter api format` or `pnpm --filter api lint:fix` to apply fixes.
+Create `apps/ui/.env.local` with:
 
-In CI, set `HUSKY=0` when installing dependencies to skip hook installation.
+```env
+BACKEND_URL=http://localhost:3001
+```
+
+Start the API and UI in separate terminals:
+
+```bash
+pnpm api:dev
+```
+
+```bash
+pnpm ui:dev
+```
+
+Open [http://localhost:3000](http://localhost:3000), select a site, and open its home page. The API runs on port 3001 by default. Run `pnpm check` to type-check, lint and build both apps. See the [API README](apps/api/README.md) for migration and development details.
+
+## Page JSON
+
+A page is stored in MongoDB's `pages` collection. It has a site ID, a title and path, an optional parent page, an order, and a tree of components. Paths start with `/`; `parentId: null` means a top-level page. Each component has an `_id`, `type`, `name`, `props` and `children`. Sections can contain other sections or card grids; a card grid keeps its cards in `props.cards`.
+
+For example, this is a page document (timestamps are MongoDB dates, shown here as strings for readability):
+
+```json
+{
+  "_id": "page-1",
+  "siteId": "site-1",
+  "title": "Home",
+  "path": "/",
+  "parentId": null,
+  "order": 0,
+  "components": [
+    {
+      "_id": "section-1",
+      "name": "Welcome",
+      "type": "section",
+      "props": { "headerLabel": "Welcome", "layout": "full", "themeType": "none" },
+      "children": [
+        {
+          "_id": "grid-1",
+          "name": "News",
+          "type": "card-grid",
+          "props": {
+            "id": "grid-1",
+            "title": "News",
+            "cards": [
+              { "id": "card-1", "variant": "icon", "heading": "Latest news" }
+            ]
+          },
+          "children": []
+        }
+      ]
+    }
+  ],
+  "createdAt": "2026-01-01T00:00:00.000Z",
+  "updatedAt": "2026-01-01T00:00:00.000Z"
+}
+```
+
+Use a real site `_id` for `siteId`. The API represents component `_id` as `id`, returns the full site in place of `siteId`, and represents a missing parent as an empty string. The supported component shapes are defined in [`component-node.schema.ts`](packages/contracts/src/routes/pages/common/component-node.schema.ts), with section and card properties in the adjacent schema files.
+
+## Add a component type
+
+1. Define its properties and add its type to the shared schemas in `packages/contracts/src/routes/pages/common/` and `packages/contracts/src/common/page.schema.ts`.
+2. Add its stored shape in `apps/api/src/models/page.model.ts`, and update the conversions in `apps/api/src/services/page.service.ts` and `apps/api/src/dto/transform-retrieve-page-response.dto.ts` so it can be saved and read.
+3. Create its React component in `apps/ui/src/components/elements/` and render it in `apps/ui/src/features/page/components/ComponentTree/ComponentTree.tsx`.
+4. Add defaults, selection and editing support in `apps/ui/src/providers/PageEditor/` and the page editor's component and configuration panels. Update tree utilities where the new type needs different nesting or editing behavior.
+5. Run `pnpm check`, then add and edit the component in the UI to verify it saves and reloads.
+
+During development, run `pnpm --filter @rugby-au/contracts dev` in another terminal to rebuild shared contracts when they change; restart an app if it does not pick up the changes.

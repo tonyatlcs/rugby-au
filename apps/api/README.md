@@ -61,7 +61,7 @@ unchanged, and rerunning it does not create duplicates.
 `pnpm --filter api migrate:down` rolls back the most recently applied migration.
 For the site seed, this removes sites with `siteKey` values `rugby-au` or
 `wallabies`, including any pre-existing sites with those keys. Rolling back the
-field rename restores `slug` and its unique index. Pages are not seeded.
+field rename restores `slug` and its unique index. A later migration seeds a home page with a section and card grid for each site, without replacing an existing home page. Rolling back that migration deletes pages inserted with its fixed IDs, including any subsequent edits to them.
 
 Keep required initial data in migrations so each database receives it once through
 the migration changelog. Optional development fixtures should use a separate seed
