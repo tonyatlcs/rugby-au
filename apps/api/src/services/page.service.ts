@@ -3,18 +3,52 @@ import type {
   CreatePageResponse,
   RetrievePageParam,
   RetrievePageResponse,
+  RetrievePageByPathParam,
+  RetrievePageByPathQuery,
   UpdatePageComponentsParam,
   UpdatePageComponentsRequest,
   UpdatePageComponentsResponse,
   ComponentNode as ApiComponentNode,
 } from "@rugby-au/contracts";
 import type { FastifyBaseLogger } from "fastify";
+import type { PipelineStage } from "mongoose";
 import { Page, Site } from "@/models/model";
 import type { ComponentNode as StoredComponent } from "@/models/page.model";
 import {
   transformRetrievePageResponse,
   type PageWithSite,
 } from "@/dto/transform-retrieve-page-response.dto";
+
+const lookupSite: PipelineStage.Lookup = {
+  $lookup: {
+    from: Site.collection.name,
+    localField: "siteId",
+    foreignField: "_id",
+    as: "site",
+  },
+};
+
+const unwindSite: PipelineStage.Unwind = { $unwind: "$site" };
+
+const countSitePages: PipelineStage.Lookup = {
+  $lookup: {
+    from: Page.collection.name,
+    localField: "siteId",
+    foreignField: "siteId",
+    pipeline: [{ $count: "total" }],
+    as: "pageCounts",
+  },
+};
+
+const findPageWithSite = async (matchPage: PipelineStage.Match) => {
+  const [response] = await Page.aggregate<PageWithSite>([
+    matchPage,
+    lookupSite,
+    unwindSite,
+    countSitePages,
+  ]).exec();
+  return response;
+};
 
 const toStoredComponent = (component: ApiComponentNode): StoredComponent => {
   if (component.type === "section") {
@@ -57,6 +91,10 @@ export type PageServiceType = {
     param: RetrievePageParam,
   ) => Promise<RetrievePageResponse | undefined>;
 
+  retrievePageByPath: (
+    args: RetrievePageByPathParam & RetrievePageByPathQuery,
+  ) => Promise<RetrievePageResponse | undefined>;
+
   /**
    * Replaces the component tree for a page, validating the update.
    *
@@ -94,27 +132,8 @@ export const createPageService = (
 
   const retrievePage: PageServiceType["retrievePage"] = async (param) => {
     try {
-      const [response] = await Page.aggregate<PageWithSite>([
-        { $match: { _id: param.pageId } },
-        {
-          $lookup: {
-            from: Site.collection.name,
-            localField: "siteId",
-            foreignField: "_id",
-            as: "site",
-          },
-        },
-        { $unwind: "$site" },
-        {
-          $lookup: {
-            from: Page.collection.name,
-            localField: "siteId",
-            foreignField: "siteId",
-            pipeline: [{ $count: "total" }],
-            as: "pageCounts",
-          },
-        },
-      ]).exec();
+      const matchPage: PipelineStage.Match = { $match: { _id: param.pageId } };
+      const response = await findPageWithSite(matchPage);
       const page = response
         ? transformRetrievePageResponse(response)
         : undefined;
@@ -145,5 +164,24 @@ export const createPageService = (
     }
   };
 
-  return { createPage, retrievePage, updatePageComponent };
+  const retrievePageByPath: PageServiceType["retrievePageByPath"] = async ({
+    siteKey,
+    path,
+  }) => {
+    try {
+      const site = await Site.findOne({ siteKey }).select("_id").lean().exec();
+      if (!site) return undefined;
+
+      const matchPage: PipelineStage.Match = {
+        $match: { siteId: site._id, path },
+      };
+      const response = await findPageWithSite(matchPage);
+      return response ? transformRetrievePageResponse(response) : undefined;
+    } catch (error) {
+      logger.error({ error, siteKey, path }, "Failed to retrieve page by path");
+      throw error;
+    }
+  };
+
+  return { createPage, retrievePage, retrievePageByPath, updatePageComponent };
 };

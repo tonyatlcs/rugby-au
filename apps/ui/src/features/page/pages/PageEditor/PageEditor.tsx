@@ -1,42 +1,11 @@
 "use client";
 
 import React from "react";
-import { Section } from "@/components/elements/Section/Section";
+import { ComponentTree } from "@/features/page/components/ComponentTree/ComponentTree";
 import { PageEditorFrame } from "@/features/page/components/PageEditorFrame/PageEditorFrame";
 import { usePageEditorManager } from "@/providers/PageEditor";
-import type { ComponentNode, SiteTheme } from "@rugby-au/contracts";
-import { PageEditorCardGrid, PageEditorNode } from "@/features/page/pages/PageEditor/PageEditorNode";
+import { PageEditorNode } from "@/features/page/pages/PageEditor/PageEditorNode";
 import styles from "@/features/page/pages/PageEditor/PageEditor.module.scss";
-
-const renderComponent = (
-  component: ComponentNode,
-  selectedComponentId: string | null,
-  siteStyle: SiteTheme["style"],
-): React.ReactNode => {
-  const isSelected = component.id === selectedComponentId;
-  if (component.type === "card-grid") {
-    return (
-      <PageEditorCardGrid key={component.id} component={component} selected={isSelected} siteStyle={siteStyle} />
-    );
-  }
-
-  return (
-    <PageEditorNode key={component.id} selected={isSelected} label="Section">
-      <Section
-        {...component.props}
-        renderEmptySlot={(index, columnCount) => (
-          <div key={`empty-${index}`} className={styles.placeholder}>
-            {columnCount === 1 ? "Empty section" : "Empty column"}
-          </div>
-        )}
-      >
-        {component.children.map((child) =>
-          renderComponent(child, selectedComponentId, siteStyle),
-        )}
-      </Section>
-    </PageEditorNode>
-  );
-};
 
 export const PageEditor: React.FC = () => {
   const { summary, componentTree, siteTheme, selectedComponentId } =
@@ -44,9 +13,32 @@ export const PageEditor: React.FC = () => {
 
   return (
     <PageEditorFrame title={summary.title} theme={siteTheme}>
-      {componentTree.map((component) =>
-        renderComponent(component, selectedComponentId, siteTheme.style),
-      )}
+      <ComponentTree
+        components={componentTree}
+        siteStyle={siteTheme.style}
+        renderNode={(component, content) => (
+          <PageEditorNode
+            selected={component.id === selectedComponentId}
+            label={component.type === "section" ? "Section" : "Card Grid"}
+          >
+            {component.type === "card-grid" ? (
+              <div onClick={(event) => {
+                if ((event.target as HTMLElement).closest("a")) event.preventDefault();
+              }}>
+                {content}
+              </div>
+            ) : content}
+          </PageEditorNode>
+        )}
+        renderEmptySlot={(index, columnCount) => (
+          <div key={`empty-${index}`} className={styles.placeholder}>
+            {columnCount === 1 ? "Empty section" : "Empty column"}
+          </div>
+        )}
+        renderEmptyCardGrid={() => (
+          <div className={styles.placeholder}>Add a card to this grid</div>
+        )}
+      />
     </PageEditorFrame>
   );
 };

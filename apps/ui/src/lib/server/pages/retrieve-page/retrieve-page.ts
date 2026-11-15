@@ -26,6 +26,7 @@ export const getPage = async (param: PageParams): Promise<PageResponse> => {
         id: rawPageInformation.id,
         title: rawPageInformation.title,
         siteName: rawPageInformation.site.name,
+        siteKey: rawPageInformation.site.siteKey,
         path: rawPageInformation.path,
       },
       componentTree: rawPageInformation.components ?? [],

@@ -37,8 +37,5 @@
   .page {
     flex: 1 0 auto;
     border: 1px solid var(--color-greyscale-100);
-    background: var(--site-background-color, #fff);
-    color: var(--site-text-color, #202536);
-    font-family: var(--site-font-family, sans-serif);
   }
 }

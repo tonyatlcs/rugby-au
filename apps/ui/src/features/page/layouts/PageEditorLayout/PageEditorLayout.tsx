@@ -22,6 +22,10 @@ export const PageEditorLayout: React.FC<PageEditorLayoutProps> = ({
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState("");
   const [savedTree, setSavedTree] = useState<ComponentNode[] | null>(null);
+  const publicPageUrl = `/public/${encodeURIComponent(summary.siteKey)}${summary.path
+    .split("/")
+    .map(encodeURIComponent)
+    .join("/")}`;
 
   const saveChanges = async () => {
     setSaving(true);
@@ -70,7 +74,12 @@ export const PageEditorLayout: React.FC<PageEditorLayoutProps> = ({
                   {savedTree === componentTree ? "Changes saved" : ""}
                 </span>
               )}
-              <Button buttonColor="secondary" buttonSize="medium" type="button">
+              <Button
+                buttonColor="secondary"
+                buttonSize="medium"
+                type="button"
+                onClick={() => window.open(publicPageUrl, "_blank", "noopener,noreferrer")}
+              >
                 <Eye size={24} />
                 <span>View Public Page</span>
               </Button>
