@@ -3,7 +3,6 @@
 import React, { type CSSProperties } from "react";
 import styles from "@/features/site/pages/SiteOverviewPage/components/SiteOverviewCard/SiteOverviewCard.module.scss";
 import type { SiteListItem } from "@/lib/server/sites/list-sites/list-sites.schema";
-import { StatusBadge } from "@/components/elements/StatusBadge/StatusBadge";
 import { ArrowRight, Link } from "lucide-react";
 import { Tag } from "@/components/elements/Tag/Tag";
 import { useRouter } from "next/navigation";
@@ -28,10 +27,6 @@ export const SiteOverviewCard: React.FC<SiteOverviewCardProps> = (props) => {
         <div className={styles.siteLogo}>
           <h4>{props.cardItems.name.charAt(0).toUpperCase()}</h4>
         </div>
-        <StatusBadge
-          variant={props.cardItems.status}
-          label={props.cardItems.status}
-        />
       </section>
       <section className={styles.body}>
         <div className={styles.bodyHeading}>

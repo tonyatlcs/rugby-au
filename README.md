@@ -86,6 +86,16 @@ For example, this is a page document (timestamps are MongoDB dates, shown here a
 
 Use a real site `_id` for `siteId`. The API represents component `_id` as `id`, returns the full site in place of `siteId`, and represents a missing parent as an empty string. The supported component shapes are defined in [`component-node.schema.ts`](packages/contracts/src/routes/pages/common/component-node.schema.ts), with section and card properties in the adjacent schema files.
 
+## Rendering the component tree
+
+The page's `components` array describes what appears on the page and in what order. The UI loads this array from the API, and [`ComponentTree`](apps/ui/src/features/page/components/ComponentTree/ComponentTree.tsx) turns it into React components:
+
+1. Start with each component at the top of the array.
+2. For a section, render a `Section`, then repeat these steps for each component in its `children`. This also handles sections inside sections.
+3. For a card grid, render its title and each card in `props.cards` as a `ContentCard`. Cards use the site's style.
+
+In the editor, [`PageEditorProvider`](apps/ui/src/providers/PageEditor/PageEditorProvider.tsx) holds the current tree as you make changes. The editor also adds selection outlines and placeholders for empty spaces. When you save, it sends the updated tree to the API.
+
 ## Adding a new component
 
 1. Define its properties and add its type to the shared schemas in `packages/contracts/src/routes/pages/common/` and `packages/contracts/src/common/page.schema.ts`.
@@ -105,9 +115,11 @@ During development, run `pnpm --filter @rugby-au/contracts dev` in another termi
 - **Component trees in MongoDB:** Pages store nested sections and card grids as data, so their layout and content can be edited. Adding a new component type requires changes across the schema, API and editor.
 
 - **Separate sites, shared builder:** Each site has its own pages and theme while using the same editor and components. This keeps the demo small, but limits site-specific behavior to what the shared builder supports.
+
 - **Migration-based seed data:** A fresh database gets two sites and example home pages. Existing home pages are preserved; the seed does not refresh their content on later runs.
+- 
 
 ## Time and AI tools
 
-- **Time spent:** A little over one working day (roughly 8–10 hours).
+- **Time spent:** One working day (roughly 8 hours).
 - **AI tools:** OpenAI Codex was used to help with implementation and documentation.
