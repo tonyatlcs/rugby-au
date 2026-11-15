@@ -19,37 +19,6 @@ import {
   type PageWithSite,
 } from "@/dto/transform-retrieve-page-response.dto";
 
-const lookupSite: PipelineStage.Lookup = {
-  $lookup: {
-    from: Site.collection.name,
-    localField: "siteId",
-    foreignField: "_id",
-    as: "site",
-  },
-};
-
-const unwindSite: PipelineStage.Unwind = { $unwind: "$site" };
-
-const countSitePages: PipelineStage.Lookup = {
-  $lookup: {
-    from: Page.collection.name,
-    localField: "siteId",
-    foreignField: "siteId",
-    pipeline: [{ $count: "total" }],
-    as: "pageCounts",
-  },
-};
-
-const findPageWithSite = async (matchPage: PipelineStage.Match) => {
-  const [response] = await Page.aggregate<PageWithSite>([
-    matchPage,
-    lookupSite,
-    unwindSite,
-    countSitePages,
-  ]).exec();
-  return response;
-};
-
 const toStoredComponent = (component: ApiComponentNode): StoredComponent => {
   if (component.type === "section") {
     return {
@@ -81,18 +50,15 @@ export type PageServiceType = {
   createPage: (request: CreatePageRequest) => Promise<CreatePageResponse>;
 
   /**
-   * Retrieves a page by ID.
+   * Retrieves a page by ID or by site key and path.
    *
-   * @param param - The ID of the page to retrieve.
+   * @param param - The page ID or the site key and path.
    * @returns The transformed page, or undefined if it does not exist.
    * @throws Rethrows query or mapping errors after logging them.
    */
   retrievePage: (
-    param: RetrievePageParam,
-  ) => Promise<RetrievePageResponse | undefined>;
-
-  retrievePageByPath: (
-    args: RetrievePageByPathParam & RetrievePageByPathQuery,
+    param:
+      RetrievePageParam | (RetrievePageByPathParam & RetrievePageByPathQuery),
   ) => Promise<RetrievePageResponse | undefined>;
 
   /**
@@ -132,15 +98,48 @@ export const createPageService = (
 
   const retrievePage: PageServiceType["retrievePage"] = async (param) => {
     try {
-      const matchPage: PipelineStage.Match = { $match: { _id: param.pageId } };
-      const response = await findPageWithSite(matchPage);
-      const page = response
-        ? transformRetrievePageResponse(response)
-        : undefined;
+      const match: Record<string, unknown> = {};
+      const siteMatch: Record<string, unknown> = {};
 
-      return page;
+      if ("pageId" in param) {
+        match._id = param.pageId;
+      } else {
+        match.path = param.path;
+        siteMatch["site.siteKey"] = param.siteKey;
+      }
+
+      const matchPage: PipelineStage.Match = { $match: match };
+      const lookupSite: PipelineStage.Lookup = {
+        $lookup: {
+          from: Site.collection.name,
+          localField: "siteId",
+          foreignField: "_id",
+          as: "site",
+        },
+      };
+      const unwindSite: PipelineStage.Unwind = { $unwind: "$site" };
+      const matchSite: PipelineStage.Match = { $match: siteMatch };
+      const countSitePages: PipelineStage.Lookup = {
+        $lookup: {
+          from: Page.collection.name,
+          localField: "siteId",
+          foreignField: "siteId",
+          pipeline: [{ $count: "total" }],
+          as: "pageCounts",
+        },
+      };
+
+      const [response] = await Page.aggregate<PageWithSite>([
+        matchPage,
+        lookupSite,
+        unwindSite,
+        matchSite,
+        countSitePages,
+      ]).exec();
+      if (!response) return undefined;
+      return transformRetrievePageResponse(response);
     } catch (error) {
-      logger.error({ error }, "Failed to retrieve page");
+      logger.error({ error, ...param }, "Failed to retrieve page");
       throw error;
     }
   };
@@ -164,24 +163,5 @@ export const createPageService = (
     }
   };
 
-  const retrievePageByPath: PageServiceType["retrievePageByPath"] = async ({
-    siteKey,
-    path,
-  }) => {
-    try {
-      const site = await Site.findOne({ siteKey }).select("_id").lean().exec();
-      if (!site) return undefined;
-
-      const matchPage: PipelineStage.Match = {
-        $match: { siteId: site._id, path },
-      };
-      const response = await findPageWithSite(matchPage);
-      return response ? transformRetrievePageResponse(response) : undefined;
-    } catch (error) {
-      logger.error({ error, siteKey, path }, "Failed to retrieve page by path");
-      throw error;
-    }
-  };
-
-  return { createPage, retrievePage, retrievePageByPath, updatePageComponent };
+  return { createPage, retrievePage, updatePageComponent };
 };

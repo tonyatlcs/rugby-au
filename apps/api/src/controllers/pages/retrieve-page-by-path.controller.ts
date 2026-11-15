@@ -28,7 +28,7 @@ export const retrievePageByPathController = async (
   }>,
   reply: FastifyReply<{ Reply: RetrievePageResponse }>,
 ) => {
-  const response = await createPageService(request.log).retrievePageByPath({
+  const response = await createPageService(request.log).retrievePage({
     ...request.params,
     ...request.query,
   });

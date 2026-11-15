@@ -8,6 +8,7 @@
     "ui:dev": "pnpm --filter ui dev",
     "api:dev": "pnpm --filter api dev",
     "contracts:build": "pnpm --filter @rugby-au/contracts build",
+    "contracts:dev": "pnpm --filter @rugby-au/contracts dev",
     "check": "pnpm --recursive --filter api --filter ui --workspace-concurrency=1 --no-bail run check",
     "prepare": "husky"
   },
