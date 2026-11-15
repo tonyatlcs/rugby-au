@@ -3,13 +3,37 @@ import type {
   CreatePageResponse,
   RetrievePageParam,
   RetrievePageResponse,
+  UpdatePageComponentsParam,
+  UpdatePageComponentsRequest,
+  UpdatePageComponentsResponse,
+  ComponentNode as ApiComponentNode,
 } from "@rugby-au/contracts";
 import type { FastifyBaseLogger } from "fastify";
 import { Page, Site } from "@/models/model";
+import type { ComponentNode as StoredComponent } from "@/models/page.model";
 import {
   transformRetrievePageResponse,
   type PageWithSite,
 } from "@/dto/transform-retrieve-page-response.dto";
+
+const toStoredComponent = (component: ApiComponentNode): StoredComponent => {
+  if (component.type === "section") {
+    return {
+      _id: component.id,
+      name: component.name,
+      type: component.type,
+      props: component.props,
+      children: component.children.map(toStoredComponent),
+    };
+  }
+  return {
+    _id: component.id,
+    name: component.name,
+    type: component.type,
+    props: component.props,
+    children: component.children,
+  };
+};
 
 /** Operation signatures for managing pages. */
 export type PageServiceType = {
@@ -32,6 +56,18 @@ export type PageServiceType = {
   retrievePage: (
     param: RetrievePageParam,
   ) => Promise<RetrievePageResponse | undefined>;
+
+  /**
+   * Replaces the component tree for a page, validating the update.
+   *
+   * @param args - The page ID and replacement component tree.
+   * @returns A confirmation message, or undefined if the page does not exist.
+   * @throws Rethrows database or validation errors after logging them.
+   */
+  updatePageComponent: (args: {
+    params: UpdatePageComponentsParam;
+    body: UpdatePageComponentsRequest;
+  }) => Promise<UpdatePageComponentsResponse | undefined>;
 };
 
 /**
@@ -90,5 +126,24 @@ export const createPageService = (
     }
   };
 
-  return { createPage, retrievePage };
+  const updatePageComponent: PageServiceType["updatePageComponent"] = async (
+    args,
+  ) => {
+    try {
+      const page = await Page.findByIdAndUpdate(
+        args.params.pageId,
+        { $set: { components: args.body.components.map(toStoredComponent) } },
+        { new: true, runValidators: true },
+      ).exec();
+
+      if (!page) return undefined;
+
+      return { message: "Components successfully saved!" };
+    } catch (error) {
+      logger.error({ error }, "Failed to save components");
+      throw error;
+    }
+  };
+
+  return { createPage, retrievePage, updatePageComponent };
 };

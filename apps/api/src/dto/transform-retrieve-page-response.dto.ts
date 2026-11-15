@@ -16,6 +16,7 @@ const transformComponent = (component: StoredComponent): ComponentNode => {
     case "section":
       return {
         id: component._id,
+        name: component.name ?? "Section",
         type: "section",
         props: component.props,
         children: (component.children ?? []).map(transformComponent),
@@ -23,6 +24,7 @@ const transformComponent = (component: StoredComponent): ComponentNode => {
     case "card-grid":
       return {
         id: component._id,
+        name: component.name ?? component.props.title,
         type: "card-grid",
         props: component.props,
         children: component.children ?? [],

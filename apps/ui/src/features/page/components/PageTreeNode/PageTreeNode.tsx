@@ -3,7 +3,7 @@
 import type { ComponentNode } from "@rugby-au/contracts";
 import { usePageEditorManager } from "@/providers/PageEditor";
 import clsx from "clsx";
-import { Check, ChevronDown, ChevronRight, Grid2X2, Square } from "lucide-react";
+import { Check, Grid2X2, Square } from "lucide-react";
 import styles from "./PageTreeNode.module.scss";
 
 interface PageTreeNodeProps {
@@ -19,9 +19,6 @@ export const PageTreeNode = ({ component }: PageTreeNodeProps) => {
   return (
     <li className={styles.node}>
       <button type="button" className={styles.row} aria-pressed={isSelected} onClick={() => selectComponent(component)}>
-        <span className={styles.chevron} aria-hidden="true">
-          {isSection && (children.length > 0 ? <ChevronDown size={16} /> : <ChevronRight size={16} />)}
-        </span>
         <span className={clsx(styles.icon, {
           [styles.sectionIcon]: isSection,
           [styles.gridIcon]: !isSection,

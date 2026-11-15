@@ -59,19 +59,3 @@
 .none { background: var(--site-background-color, #fff); }
 .light { background: var(--site-light-background-color, #eef5ff); }
 .brand { background: var(--site-primary-color, var(--color-primary-500)); }
-.addContent {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-8);
-  width: 100%;
-  padding: var(--spacing-12);
-  border: 1px dashed var(--color-primary-300);
-  border-radius: var(--radius-8);
-  background: var(--color-primary-50);
-  color: var(--color-primary-600);
-  font: inherit;
-  cursor: pointer;
-  &:disabled { cursor: not-allowed; opacity: 0.7; }
-  &:focus-visible { outline: 2px solid var(--color-primary-500); outline-offset: 2px; }
-}

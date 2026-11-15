@@ -9,18 +9,24 @@ import { getSectionConfigGroups } from "./PageSectionConfigPanel.data";
 import styles from "./PageSectionConfigPanel.module.scss";
 
 export const PageSectionConfigPanel = () => {
-  const { selectedComponent, updateSection, siteTheme } = usePageEditorManager();
+  const { selectedComponent, updateSection, addComponent, siteTheme } =
+    usePageEditorManager();
   if (!selectedComponent || selectedComponent.type !== "section") return null;
   const selectedSection = selectedComponent;
 
-  const groups = getSectionConfigGroups(selectedSection, updateSection);
+  const groups = getSectionConfigGroups(selectedSection, updateSection, addComponent);
 
   return (
-    <div className={styles.panel} style={{
-      "--site-background-color": siteTheme.backgroundColor,
-      "--site-light-background-color": siteTheme.lightBackgroundColor,
-      "--site-primary-color": siteTheme.primaryColor,
-    } as CSSProperties}>
+    <div
+      className={styles.panel}
+      style={
+        {
+          "--site-background-color": siteTheme.backgroundColor,
+          "--site-light-background-color": siteTheme.lightBackgroundColor,
+          "--site-primary-color": siteTheme.primaryColor,
+        } as CSSProperties
+      }
+    >
       <SideNavSection
         className={styles.header}
         primaryTitle="Edit Section"

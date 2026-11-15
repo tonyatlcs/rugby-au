@@ -6,6 +6,7 @@ import { Button } from "@/components/controls/Button";
 import { SideNavSection } from "@/components/elements/SideNav/SideNavSection/SideNavSection";
 import { PageComponentCard } from "@/features/page/components/PageComponentCard/PageComponentCard";
 import { usePageEditorManager } from "@/providers/PageEditor";
+import { findParentSection } from "@/lib/utils/component-tree-utils";
 import styles from "./PageComponentSection.module.scss";
 
 interface PageComponentSectionProps {
@@ -15,10 +16,22 @@ interface PageComponentSectionProps {
 export const PageComponentSection: React.FC<PageComponentSectionProps> = ({
   onAddSection,
 }) => {
-  const { componentTree } = usePageEditorManager();
-  const hasSectionComponent = componentTree.some(
+  const { componentTree, selectedComponent, addComponent } =
+    usePageEditorManager();
+  const firstSection = componentTree.find(
     (component) => component.type === "section",
   );
+  const getDestination = () => {
+    if (selectedComponent?.type === "section") return selectedComponent;
+    if (selectedComponent) {
+      return (
+        findParentSection(componentTree, selectedComponent.id) ?? firstSection
+      );
+    }
+    return firstSection;
+  };
+  const destination = getDestination();
+  const hasSectionComponent = Boolean(firstSection);
 
   return (
     <SideNavSection
@@ -39,7 +52,6 @@ export const PageComponentSection: React.FC<PageComponentSectionProps> = ({
             type="button"
             buttonColor="primary"
             buttonSize="medium"
-            className={styles.buttonLabel}
             fullWidth
             disabled={!onAddSection}
             onClick={onAddSection}
@@ -58,7 +70,20 @@ export const PageComponentSection: React.FC<PageComponentSectionProps> = ({
           locked={!hasSectionComponent}
         >
           {hasSectionComponent ? (
-            <p className={styles.notice}>Adding Card Grids is coming soon.</p>
+            <div className={styles.addCardGrid}>
+              <Button
+                type="button"
+                buttonColor="secondary"
+                buttonSize="medium"
+                fullWidth
+                onClick={() => {
+                  if (destination) addComponent("card-grid", destination.id);
+                }}
+                startAdornment={<Plus size={16} aria-hidden="true" />}
+              >
+                Add Card Grid
+              </Button>
+            </div>
           ) : (
             <p className={styles.lockedMessage}>
               <Lock size={16} aria-hidden="true" />

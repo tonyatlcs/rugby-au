@@ -1,9 +1,33 @@
-import type { ComponentNode, SectionComponent } from "@rugby-au/contracts";
+import type {
+  CardGridComponent,
+  ComponentNode,
+  SectionComponent,
+} from "@rugby-au/contracts";
 
 /** Fields that can be updated on a section; props are merged shallowly. */
 export type SectionUpdates = {
   name?: string;
   props?: Partial<SectionComponent["props"]>;
+  children?: SectionComponent["children"];
+};
+
+export type CardGridUpdates = Partial<CardGridComponent["props"]>;
+
+type NodeUpdates =
+  | { type: "section"; updates: SectionUpdates }
+  | { type: "card-grid"; updates: CardGridUpdates };
+
+export const findParentSection = (
+  nodes: ComponentNode[],
+  id: string,
+): SectionComponent | null => {
+  for (const node of nodes) {
+    if (node.type !== "section") continue;
+    if (node.children.some((child) => child.id === id)) return node;
+    const parent = findParentSection(node.children, id);
+    if (parent) return parent;
+  }
+  return null;
 };
 
 /**
@@ -29,33 +53,45 @@ export const findComponent = (
 };
 
 /**
- * Returns a new tree with matching sections updated. Section props are merged
- * shallowly, and an omitted name preserves the existing name. Children of a
- * matching section are not searched for further matches.
+ * Returns a new tree with the matching node updated. Props are merged shallowly.
  *
  * @param nodes - Root nodes to update.
- * @param id - ID of the section to update.
- * @param updates - Section fields to apply.
+ * @param id - ID of the node to update.
+ * @param change - Node type and fields to apply.
  * @returns A new array containing the updated tree.
  */
-export const updateSectionInTree = (
+export const updateNodeInTree = (
   nodes: ComponentNode[],
   id: string,
-  updates: SectionUpdates,
+  change: NodeUpdates,
 ): ComponentNode[] =>
   nodes.map((node) => {
-    if (node.type !== "section") return node;
-    if (node.id === id) {
+    if (
+      node.id === id &&
+      node.type === "section" &&
+      change.type === "section"
+    ) {
       return {
         ...node,
-        name: updates.name ?? node.name,
-        props: { ...node.props, ...updates.props },
+        name: change.updates.name ?? node.name,
+        props: { ...node.props, ...change.updates.props },
+        children: change.updates.children ?? node.children,
       };
     }
-    return {
-      ...node,
-      children: updateSectionInTree(node.children, id, updates),
-    };
+    if (
+      node.id === id &&
+      node.type === "card-grid" &&
+      change.type === "card-grid"
+    ) {
+      return {
+        ...node,
+        name: change.updates.title ?? node.name,
+        props: { ...node.props, ...change.updates },
+      };
+    }
+    return node.type === "section"
+      ? { ...node, children: updateNodeInTree(node.children, id, change) }
+      : node;
   });
 
 /** Removes a component and its descendants from the tree by ID. */

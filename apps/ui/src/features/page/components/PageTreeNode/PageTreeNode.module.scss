@@ -25,14 +25,6 @@
     }
     &:focus-visible { outline: 2px solid var(--color-primary-500); outline-offset: 2px; }
 
-    .chevron {
-      display: grid;
-      place-items: center;
-      width: 16px;
-      flex: none;
-      color: var(--color-greyscale-500);
-    }
-
     .icon {
       display: grid;
       place-items: center;

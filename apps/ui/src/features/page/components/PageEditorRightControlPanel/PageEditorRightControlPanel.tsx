@@ -7,6 +7,7 @@ import { SideNav } from "@/components/elements/SideNav/SideNav";
 import { PagePropertiesEmptyState } from "@/features/page/components/PagePropertiesEmptyState/PagePropertiesEmptyState";
 import { usePageEditorManager } from "@/providers/PageEditor";
 import { PageSectionConfigPanel } from "@/features/page/components/PageSectionConfigPanel/PageSectionConfigPanel";
+import { PageCardGridConfigPannel } from "@/features/page/components/PageCardGridConfigPannel/PageCardGridConfigPannel";
 import styles from "./PageEditorRightControlPanel.module.scss";
 
 export const PageEditorRightControlPanel: React.FC = () => {
@@ -36,9 +37,7 @@ export const PageEditorRightControlPanel: React.FC = () => {
       {pageEditorRightPanelView === "sectionConfig" ? (
         <PageSectionConfigPanel />
       ) : pageEditorRightPanelView === "cardGridConfig" ? (
-        <p style={{ padding: "var(--spacing-16)" }}>
-          Card Grid settings are coming soon.
-        </p>
+        <PageCardGridConfigPannel />
       ) : (
         <PagePropertiesEmptyState />
       )}

@@ -1,5 +1,6 @@
 import { Check, Plus } from "lucide-react";
 import clsx from "clsx";
+import { Button } from "@/components/controls/Button";
 import { TextInput } from "@/components/controls/TextInput";
 import type {
   Section as SectionConfig,
@@ -26,6 +27,7 @@ const themes: { value: SectionConfig["themeType"]; label: string }[] = [
 export const getSectionConfigGroups = (
   selectedSection: SectionComponent,
   updateSection: PageEditorContextProps["updateSection"],
+  addComponent: PageEditorContextProps["addComponent"],
 ) => {
   return [
     {
@@ -126,12 +128,16 @@ export const getSectionConfigGroups = (
     {
       title: "Content",
       content: (
-        <>
-          <button type="button" className={styles.addContent} disabled>
-            <Plus size={16} aria-hidden="true" /> Add content to this section
-          </button>
-          <p className={styles.hint}>Adding card grids is coming soon.</p>
-        </>
+        <Button
+          type="button"
+          buttonColor="secondary"
+          buttonSize="medium"
+          fullWidth
+          startAdornment={<Plus size={16} aria-hidden="true" />}
+          onClick={() => addComponent("card-grid", selectedSection.id)}
+        >
+          Add content to this section
+        </Button>
       ),
     },
   ];

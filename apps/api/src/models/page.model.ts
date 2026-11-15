@@ -5,6 +5,7 @@ import type { CardGridComponent, SectionComponent } from "@rugby-au/contracts";
 
 type StoredSection = {
   _id: string;
+  name?: string;
   type: "section";
   props: SectionComponent["props"];
   children?: ComponentNode[];
@@ -12,6 +13,7 @@ type StoredSection = {
 
 type StoredCardGrid = {
   _id: string;
+  name?: string;
   type: "card-grid";
   props: CardGridComponent["props"];
   children?: CardGridComponent["children"];
