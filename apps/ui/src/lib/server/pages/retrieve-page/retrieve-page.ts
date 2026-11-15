@@ -29,6 +29,7 @@ export const getPage = async (param: PageParams): Promise<PageResponse> => {
         path: rawPageInformation.path,
       },
       componentTree: rawPageInformation.components ?? [],
+      siteTheme: rawPageInformation.site.theme,
     };
 
     return page;

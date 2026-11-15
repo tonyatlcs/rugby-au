@@ -43,6 +43,22 @@ export class SiteThemeModel {
   @prop({
     type: String,
     required: true,
+    default: "#202536",
+    match: hexColorRegex,
+  })
+  lightTextColor!: string;
+
+  @prop({
+    type: String,
+    required: true,
+    default: "#000000",
+    match: hexColorRegex,
+  })
+  brandTextColor!: string;
+
+  @prop({
+    type: String,
+    required: true,
     default: "Inter",
     trim: true,
   })

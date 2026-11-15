@@ -1,0 +1,19 @@
+.group {
+  padding: var(--spacing-24) 0;
+  border-bottom: 1px solid var(--color-greyscale-100);
+  &:last-child { border-bottom: 0; }
+
+  summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: var(--font-weight-semibold);
+    list-style: none;
+    &::-webkit-details-marker { display: none; }
+    svg { color: var(--color-greyscale-500); }
+  }
+  &[open] summary { margin-bottom: var(--spacing-24); }
+  &[open] summary svg { transform: rotate(180deg); }
+}
+

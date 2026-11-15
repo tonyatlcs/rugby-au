@@ -12,6 +12,10 @@ export const PageEditorRightControlPanel: React.FC = () => {
     <SideNav orientation="right">
       {pageEditorRightPanelView === "sectionConfig" ? (
         <PageSectionConfigPanel />
+      ) : pageEditorRightPanelView === "cardGridConfig" ? (
+        <p style={{ padding: "var(--spacing-16)" }}>
+          Card Grid settings are coming soon.
+        </p>
       ) : (
         <PagePropertiesEmptyState />
       )}

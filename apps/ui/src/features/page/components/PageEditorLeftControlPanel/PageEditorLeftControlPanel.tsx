@@ -12,7 +12,6 @@ export const PageEditorLeftControlPanel = () => {
   const {
     pageEditorLeftPanelView,
     setPageEditorLeftPanelView,
-    setPageEditorRightPanelView,
     addNewSection,
   } = usePageEditorManager();
 
@@ -41,10 +40,7 @@ export const PageEditorLeftControlPanel = () => {
         <>
           <PageComponentDestinationSection />
           <PageComponentSection
-            onAddSection={() => {
-              addNewSection();
-              setPageEditorRightPanelView("sectionConfig");
-            }}
+            onAddSection={addNewSection}
           />
         </>
       )}

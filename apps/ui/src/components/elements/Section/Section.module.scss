@@ -1,0 +1,30 @@
+.section {
+  container-type: inline-size;
+  padding: var(--site-section-padding-block, 48px) var(--site-section-padding-inline, 24px);
+}
+
+.none { background: transparent; }
+.light {
+  background: var(--site-light-background-color, #eef5ff);
+  color: var(--site-light-text-color, #202536);
+}
+.brand {
+  background: var(--site-primary-color, #fa4602);
+  color: var(--site-brand-text-color, #000000);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--site-section-gap, 24px);
+  max-width: var(--site-content-width, 1200px);
+  margin-inline: auto;
+}
+
+@container (min-width: 600px) {
+  .two-column, .three-column { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@container (min-width: 900px) {
+  .three-column { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

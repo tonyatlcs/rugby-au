@@ -1,4 +1,4 @@
-import { ComponentNodeSchema } from "@rugby-au/contracts";
+import { ComponentNodeSchema, SiteThemeSchema } from "@rugby-au/contracts";
 import { Type, type Static } from "@sinclair/typebox";
 
 export const PageParamsSchema = Type.Object({
@@ -19,6 +19,7 @@ export type PageSummary = Static<typeof PageSummarySchema>;
 export const PageResponseSchema = Type.Object({
   summary: PageSummarySchema,
   componentTree: Type.Array(ComponentNodeSchema),
+  siteTheme: SiteThemeSchema,
 });
 
 export type PageResponse = Static<typeof PageResponseSchema>;

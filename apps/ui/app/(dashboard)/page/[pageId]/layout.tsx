@@ -11,10 +11,10 @@ type LayoutProps = {
 
 async function PageLayoutContent(props: LayoutProps) {
   const { pageId } = await props.params;
-  const { summary, componentTree } = await getPage({ pageId });
+  const { summary, componentTree, siteTheme } = await getPage({ pageId });
 
   return (
-    <PageEditorProvider summary={summary} componentTree={componentTree}>
+    <PageEditorProvider summary={summary} componentTree={componentTree} siteTheme={siteTheme}>
       <PageEditorLayout>{props.children}</PageEditorLayout>
     </PageEditorProvider>
   );

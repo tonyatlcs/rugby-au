@@ -5,6 +5,8 @@ export const SiteThemeSchema = Type.Object({
   backgroundColor: Type.String({ maxLength: 7 }),
   lightBackgroundColor: Type.String({ maxLength: 7 }),
   textColor: Type.String({ maxLength: 7 }),
+  lightTextColor: Type.String({ maxLength: 7 }),
+  brandTextColor: Type.String({ maxLength: 7 }),
   fontFamily: Type.String(),
 });
 

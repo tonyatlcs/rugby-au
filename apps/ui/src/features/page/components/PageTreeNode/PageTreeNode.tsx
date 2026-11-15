@@ -1,6 +1,9 @@
+"use client";
+
 import type { ComponentNode } from "@rugby-au/contracts";
+import { usePageEditorManager } from "@/providers/PageEditor";
 import clsx from "clsx";
-import { ChevronDown, Grid2X2, Square } from "lucide-react";
+import { Check, ChevronDown, ChevronRight, Grid2X2, Square } from "lucide-react";
 import styles from "./PageTreeNode.module.scss";
 
 interface PageTreeNodeProps {
@@ -10,12 +13,14 @@ interface PageTreeNodeProps {
 export const PageTreeNode = ({ component }: PageTreeNodeProps) => {
   const children = component.type === "section" ? component.children : [];
   const isSection = component.type === "section";
+  const { selectComponent, selectedComponentId } = usePageEditorManager();
+  const isSelected = selectedComponentId === component.id;
 
   return (
     <li className={styles.node}>
-      <div className={styles.row}>
+      <button type="button" className={styles.row} aria-pressed={isSelected} onClick={() => selectComponent(component)}>
         <span className={styles.chevron} aria-hidden="true">
-          {children.length > 0 && <ChevronDown size={16} />}
+          {isSection && (children.length > 0 ? <ChevronDown size={16} /> : <ChevronRight size={16} />)}
         </span>
         <span className={clsx(styles.icon, {
           [styles.sectionIcon]: isSection,
@@ -27,7 +32,8 @@ export const PageTreeNode = ({ component }: PageTreeNodeProps) => {
           <span className={styles.type}>{isSection ? "Section" : "Card Grid"} · </span>
           {component.name}
         </span>
-      </div>
+        {isSelected && <Check className={styles.check} size={16} aria-hidden="true" />}
+      </button>
       {children.length > 0 && (
         <ul className={styles.children}>
           {children.map((child) => <PageTreeNode key={child.id} component={child} />)}

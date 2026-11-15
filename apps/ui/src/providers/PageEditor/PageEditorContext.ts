@@ -1,8 +1,9 @@
 "use client";
 
 import type { PageResponse } from "@/lib/server/pages/retrieve-page/retrieve-page.schema";
-import type { SectionComponent } from "@rugby-au/contracts";
-import { createContext, type Dispatch, type SetStateAction } from "react";
+import type { ComponentNode, SectionComponent } from "@rugby-au/contracts";
+import { createContext } from "react";
+import type { SectionUpdates } from "@/lib/utils/component-tree-utils";
 
 export type SectionConfig = SectionComponent["props"];
 
@@ -14,13 +15,15 @@ export type PageEditorRightPanelViewType =
   | "cardGridConfig";
 
 export type PageEditorContextProps = PageResponse & {
-  sectionConfig: SectionConfig;
+  selectedComponent: ComponentNode | null;
+  selectedComponentId: string | null;
   pageEditorLeftPanelView: PageEditorLeftPanelView;
-  setPageEditorLeftPanelView: (view: PageEditorLeftPanelView) => void;
   pageEditorRightPanelView: PageEditorRightPanelViewType;
+  setPageEditorLeftPanelView: (view: PageEditorLeftPanelView) => void;
   setPageEditorRightPanelView: (view: PageEditorRightPanelViewType) => void;
   addNewSection: () => void;
-  setSectionConfig: Dispatch<SetStateAction<SectionConfig>>;
+  selectComponent: (component: ComponentNode) => void;
+  updateSection: (id: string, updates: SectionUpdates) => void;
 };
 
 export const PageEditorContext = createContext<PageEditorContextProps | null>(

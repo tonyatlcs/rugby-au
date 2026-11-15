@@ -1,51 +1,44 @@
 "use client";
 
-import React from "react";
+import { Square } from "lucide-react";
+import type { CSSProperties } from "react";
+import { SideNavSection } from "@/components/elements/SideNav/SideNavSection/SideNavSection";
 import { usePageEditorManager } from "@/providers/PageEditor";
+import { ComponentEditorDetails } from "@/features/page/components/ComponentEditorDetails/ComponentEditorDetails";
+import { getSectionConfigGroups } from "./PageSectionConfigPanel.data";
+import styles from "./PageSectionConfigPanel.module.scss";
 
-export const PageSectionConfigPanel: React.FC = () => {
-  const { sectionConfig, setSectionConfig, addNewSection } = usePageEditorManager();
+export const PageSectionConfigPanel = () => {
+  const { selectedComponent, updateSection, siteTheme } = usePageEditorManager();
+  if (!selectedComponent || selectedComponent.type !== "section") return null;
+  const selectedSection = selectedComponent;
+
+  const groups = getSectionConfigGroups(selectedSection, updateSection);
 
   return (
-    <div>
-      <h2>Section layout</h2>
-
-      <button
-        type="button"
-        aria-pressed={sectionConfig.layout === "full"}
-        onClick={() => setSectionConfig((current) => ({ ...current, layout: "full" }))}
+    <div className={styles.panel} style={{
+      "--site-background-color": siteTheme.backgroundColor,
+      "--site-light-background-color": siteTheme.lightBackgroundColor,
+      "--site-primary-color": siteTheme.primaryColor,
+    } as CSSProperties}>
+      <SideNavSection
+        className={styles.header}
+        primaryTitle="Edit Section"
+        titleIcon={
+          <span className={styles.headerIcon}>
+            <Square size={16} aria-hidden="true" />
+          </span>
+        }
       >
-        Full width
-      </button>
-
-      <button
-        type="button"
-        aria-pressed={sectionConfig.layout === "two-column"}
-        onClick={() => setSectionConfig((current) => ({ ...current, layout: "two-column" }))}
-      >
-        Two columns
-      </button>
-      <button
-        type="button"
-        aria-pressed={sectionConfig.layout === "three-column"}
-        onClick={() => setSectionConfig((current) => ({ ...current, layout: "three-column" }))}
-      >
-        Three columns
-      </button>
-
-      <h2>Section theme</h2>
-      {(["none", "light", "brand"] as const).map((theme) => (
-        <button
-          key={theme}
-          type="button"
-          aria-pressed={sectionConfig.themeType === theme}
-          onClick={() => setSectionConfig((current) => ({ ...current, themeType: theme }))}
-        >
-          {theme === "none" ? "None" : theme === "light" ? "Light" : "Brand"}
-        </button>
-      ))}
-
-      <button type="button" onClick={addNewSection}>Add section</button>
+        <p>Section · {selectedSection.name || "Untitled"}</p>
+      </SideNavSection>
+      <div className={styles.body}>
+        {groups.map(({ title, content }) => (
+          <ComponentEditorDetails key={title} title={title}>
+            {content}
+          </ComponentEditorDetails>
+        ))}
+      </div>
     </div>
   );
 };
