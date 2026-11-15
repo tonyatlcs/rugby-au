@@ -1,3 +1,5 @@
+import { SiteSchema } from "@/common/site.schema.js";
+import { ComponentNodeSchema } from "@/routes/pages/common/component-node.schema.js";
 import { Type, type Static } from "@sinclair/typebox";
 
 export const ComponentTypeSchema = Type.Union([
@@ -7,25 +9,14 @@ export const ComponentTypeSchema = Type.Union([
 
 export type ComponentType = Static<typeof ComponentTypeSchema>;
 
-export const ComponentNodeSchema = Type.Recursive((Self) =>
-  Type.Object({
-    id: Type.String(),
-    type: ComponentTypeSchema,
-    props: Type.Record(Type.String(), Type.Unknown()),
-    children: Type.Array(Self),
-  }),
-);
-
-export type ComponentNode = Static<typeof ComponentNodeSchema>;
-
 export const PageSchema = Type.Object({
   id: Type.String(),
-  siteId: Type.String(),
+  site: SiteSchema,
   title: Type.String(),
   path: Type.String(),
   parentId: Type.String(),
   order: Type.Number({ minimum: 0 }),
-  componentNode: ComponentNodeSchema,
+  components: Type.Optional(Type.Array(ComponentNodeSchema)),
   createdAt: Type.String({ format: "date-time" }),
   updatedAt: Type.String({ format: "date-time" }),
 });

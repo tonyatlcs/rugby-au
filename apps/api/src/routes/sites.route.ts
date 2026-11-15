@@ -1,11 +1,11 @@
 import {
   listSitesController,
   ListSitesRouteOptions,
-} from "@/controllers/sites/list-sites/list-sites.controller";
+} from "@/controllers/sites/list-sites.controller";
 import {
   retireveSiteController,
   RetrieveSiteRouteOptions,
-} from "@/controllers/sites/retrieve-site/retrieve-site.controller";
+} from "@/controllers/sites/retrieve-site.controller";
 import type { FastifyInstance } from "fastify";
 
 export const siteRoutes = (fastify: FastifyInstance) => {

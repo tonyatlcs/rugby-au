@@ -1,0 +1,37 @@
+ 
+.destination {
+  padding: var(--spacing-16);
+  border: 1px solid var(--color-primary-200);
+  border-radius: var(--radius-16);
+  background: var(--color-primary-50);
+  font-size: var(--font-body-small-size);
+  line-height: var(--font-body-small-line-height);
+
+  .label {
+    color: var(--color-greyscale-500);
+  }
+
+  .target {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    margin-top: var(--spacing-4);
+    color: var(--color-primary-500);
+    font-weight: var(--font-body-small-bold-weight);
+
+    .icon {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      flex: none;
+      border-radius: var(--radius-8);
+      background: var(--color-greyscale-0);
+    }
+  }
+
+  .description {
+    margin: var(--spacing-12) 0 0;
+    color: var(--color-greyscale-500);
+  }
+}

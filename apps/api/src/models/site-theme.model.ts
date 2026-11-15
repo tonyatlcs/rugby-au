@@ -27,6 +27,14 @@ export class SiteThemeModel {
   @prop({
     type: String,
     required: true,
+    default: "#EEF5FF",
+    match: hexColorRegex,
+  })
+  lightBackgroundColor!: string;
+
+  @prop({
+    type: String,
+    required: true,
     default: "#202536",
     match: hexColorRegex,
   })

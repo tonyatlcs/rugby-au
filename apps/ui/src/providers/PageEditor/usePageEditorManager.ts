@@ -11,7 +11,7 @@ export const usePageEditorManager = (): PageEditorContextProps => {
 
   if (!context) {
     throw new Error(
-      "usePageSelection must be used within a PageSelectionProvider",
+      "usePageEditorManager must be used within a PageEditorProvider",
     );
   }
 

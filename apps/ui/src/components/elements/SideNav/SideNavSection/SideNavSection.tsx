@@ -4,7 +4,7 @@ import React, { ReactNode } from "react";
 import styles from "@/components/elements/SideNav/SideNavSection/SideNavSection.module.scss";
 
 interface SideNavSectionProps {
-  primaryTitle: string;
+  primaryTitle?: string;
   secondaryTitle?: ReactNode;
   children: ReactNode;
   titleIcon?: ReactNode;
@@ -13,7 +13,9 @@ interface SideNavSectionProps {
 
 export const SideNavSection: React.FC<SideNavSectionProps> = (props) => {
   return (
-    <div className={[styles.wrapper, props.className].filter(Boolean).join(" ")}>
+    <div
+      className={[styles.wrapper, props.className].filter(Boolean).join(" ")}
+    >
       <div className={styles.titleContainer}>
         <h4 className={styles.title}>
           {props.titleIcon}

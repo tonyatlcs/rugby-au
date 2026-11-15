@@ -11,18 +11,18 @@ import { useModalManager } from "@/providers/Modal";
 import { CreatePageModal } from "@/features/site/pages/SiteEditorPage/components/CreatePageModal/CreatePageModal";
 
 import { SiteMapTreeLayout } from "@/features/site/layouts/SiteMapTreeLayout/SiteMapTreeLayout";
-import { usePageEditorManager } from "@/providers/PageEditor";
+import { useSiteEditorManager } from "@/providers/SiteEditor";
+import { buildPageTree } from "@/lib/utils/build-page-tree";
 
 interface SiteEditorPageProps {
   siteInformation: SiteInformation;
   pageTree: PageTree;
 }
 
-export const SiteEditorPage: React.FC<SiteEditorPageProps> = ({
-  siteInformation,
-  pageTree,
-}) => {
-  const { selectedPage, setSelectedPage } = usePageEditorManager();
+export const SiteEditorPage: React.FC = () => {
+  const { siteInformation, pageInformation, selectedPage, setSelectedPage } =
+    useSiteEditorManager();
+  const pageTree = buildPageTree(pageInformation);
   return (
     <div className={styles.canvas}>
       <section className={styles.header}>

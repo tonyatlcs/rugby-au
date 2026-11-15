@@ -5,7 +5,7 @@ import {
   type CreatePageRequest,
   type CreatePageResponse,
 } from "@rugby-au/contracts";
-import { createPageService } from "@/services/page/page.service";
+import { createPageService } from "@/services/page.service";
 import createHttpError from "http-errors";
 
 export const CreatePageSchema: RouteSchema = {

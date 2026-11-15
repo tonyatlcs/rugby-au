@@ -3,25 +3,34 @@
   flex-direction: column;
   height: 100dvh;
   overflow: hidden;
-}
 
-.header {
-  flex-shrink: 0;
-}
+  .header {
+    flex-shrink: 0;
 
-.body {
-  display: flex;
-  flex: 1;
-  min-height: 0;
-  min-width: 0;
-}
+    .urlSeparator {
+      margin-inline: var(--spacing-4);
+    }
 
-.content {
-  flex: 1;
-  min-width: 0;
-  overflow: auto;
-}
+    .pagesText {
+      font-weight: var(--font-body-small-bold-weight);
+      color: var(--color-greyscale-900);
+    }
+  }
 
-.footerWrapper {
-  padding: var(--spacing-16);
+  .body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+
+    .content {
+      flex: 1;
+      min-width: 0;
+      overflow: auto;
+    }
+
+    .footerWrapper {
+      padding: var(--spacing-16);
+    }
+  }
 }

@@ -10,7 +10,7 @@ import { Page, Site } from "@/models/model";
 import {
   transformRetrieveSiteResponse,
   type SiteWithPages,
-} from "@/controllers/sites/retrieve-site/util/transform-retrieve-site-response.dto";
+} from "@/dto/transform-retrieve-site-response.dto";
 
 /** Operation signatures for retrieving site data for API responses. */
 export type SiteServiceType = {

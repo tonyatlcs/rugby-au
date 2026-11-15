@@ -6,7 +6,7 @@ import {
   type RetrieveSiteParam,
   type RetrieveSiteResponse,
 } from "@rugby-au/contracts";
-import { createSiteService } from "@/services/site/site.service";
+import { createSiteService } from "@/services/site.service";
 
 export const RetrieveSiteSchema: RouteSchema = {
   description: "Retrieve one site and it's associated pages.",

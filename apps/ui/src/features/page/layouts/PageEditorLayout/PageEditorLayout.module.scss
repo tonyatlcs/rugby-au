@@ -1,0 +1,37 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+
+  .header {
+    flex-shrink: 0;
+
+    .urlSeparator {
+      margin-inline: var(--spacing-4);
+    }
+
+    .pagesText {
+      font-weight: var(--font-body-small-bold-weight);
+      color: var(--color-greyscale-900);
+    }
+  }
+
+  .body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+    
+
+    .content {
+      flex: 1;
+      min-width: 0;
+      overflow: auto;
+    }
+
+    .footerWrapper {
+      padding: var(--spacing-16);
+    }
+  }
+}

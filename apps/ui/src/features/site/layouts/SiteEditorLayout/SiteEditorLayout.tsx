@@ -2,17 +2,19 @@
 
 import { TopNav } from "@/components/elements/TopNav/TopNav";
 import type { ReactNode } from "react";
-import type { SiteResponse } from "@/lib/server/sites/retrieve-site/retrieve-site.schema";
 import { SideNav } from "@/components/elements/SideNav/SideNav";
 import styles from "./SiteEditorLayout.module.scss";
-import { usePageEditorManager } from "@/providers/PageEditor";
+import { useSiteEditorManager } from "@/providers/SiteEditor";
 import { EditPageInformationSection } from "@/features/site/pages/SiteEditorPage/components/EditPageInformationSection/EditPageInformationSection";
 import { PageStructureSection } from "@/features/site/pages/SiteEditorPage/components/PageStructureSection/PageStructureSection";
 import { Button } from "@/components/controls/Button";
 import { useRouter } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Eye, Plus } from "lucide-react";
+import { Tag } from "@/components/elements/Tag/Tag";
+import { useModalManager } from "@/providers/Modal";
+import { CreatePageModal } from "@/features/site/pages/SiteEditorPage/components/CreatePageModal/CreatePageModal";
 
-interface SideEditorLayoutProps extends SiteResponse {
+interface SideEditorLayoutProps {
   children: ReactNode;
 }
 
@@ -43,20 +45,71 @@ const SiteEditorSideNavFooter = ({ pageId }: { pageId?: string }) => {
 
 export const SiteEditorLayout: React.FC<SideEditorLayoutProps> = ({
   children,
-  siteInformation,
-  pageInformation,
 }) => {
-  const { selectedPage, setSelectedPage } = usePageEditorManager();
+  const { siteInformation, pageInformation, selectedPage, setSelectedPage } =
+    useSiteEditorManager();
+  const { setActiveModal } = useModalManager();
+  const renderDescription = () => (
+    <>
+      <span>{siteInformation.siteName}</span>
+      <span>&middot;</span>
+      <span>
+        {siteInformation.pageCount > 0
+          ? `${siteInformation.pageCount} pages`
+          : "No pages"}
+      </span>
+    </>
+  );
+
+  const renderPath = () => (
+    <Tag variant="neutral" tagColor="greyscale" size="large">
+      <span>{siteInformation.url}</span>
+      <span className={styles.urlSeparator}>/</span>
+      <span className={styles.pagesText}>pages</span>
+    </Tag>
+  );
+
+  const renderActions = () => (
+    <>
+      <Button buttonColor="secondary" buttonSize="medium" type="button">
+        <Eye size={24} />
+        <span>View Public Site</span>
+      </Button>
+      <Button
+        buttonColor="primary"
+        buttonSize="medium"
+        type="button"
+        onClick={() =>
+          setActiveModal(
+            <CreatePageModal
+              sitePath={siteInformation.url || ""}
+              siteId={siteInformation.id}
+              pages={pageInformation}
+            />,
+          )
+        }
+      >
+        <Plus size={20} />
+        <span>Create page</span>
+      </Button>
+    </>
+  );
+
   return (
     <div className={styles.layout}>
       <div className={styles.header}>
         <TopNav
-          siteInformation={siteInformation}
-          pageInformation={pageInformation}
+          title="Page Overview"
+          description={renderDescription()}
+          path={renderPath()}
+          actions={renderActions()}
         />
       </div>
       <div className={styles.body}>
-        <SideNav footer={<SiteEditorSideNavFooter pageId={selectedPage?.id} />}>
+        <SideNav
+          orientation="left"
+          footer={<SiteEditorSideNavFooter pageId={selectedPage?.id} />}
+        >
           <PageStructureSection
             pageCount={siteInformation.pageCount}
             pageList={pageInformation}

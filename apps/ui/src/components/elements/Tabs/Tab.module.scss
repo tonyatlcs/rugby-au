@@ -1,0 +1,40 @@
+.wrapper {
+  display: flex;
+  padding: var(--spacing-4);
+  border-radius: var(--radius-16);
+  background: var(--color-greyscale-50);
+
+  .tab {
+    flex: 1;
+    padding: var(--spacing-8);
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--color-greyscale-600);
+    cursor: pointer;
+
+    &.selected {
+      color: var(--color-greyscale-800);
+      background-color: var(--color-greyscale-0);
+
+      & > span {
+        font-size: var(--font-body-small-bold-size);
+        line-height: var(--font-body-small-bold-line-height);
+        letter-spacing: var(--font-body-small-bold-letter-spacing);
+        font-weight: var(--font-body-small-bold-weight);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary-500);
+      outline-offset: 2px;
+    }
+
+    & > span {
+      font-size: var(--font-body-small-size);
+      line-height: var(--font-body-small-line-height);
+      letter-spacing: var(--font-body-small-letter-spacing);
+      font-weight: var(--font-body-small-weight);
+    }
+  }
+}

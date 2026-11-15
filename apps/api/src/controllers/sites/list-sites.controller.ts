@@ -5,7 +5,7 @@ import {
   ListSitesResponseSchema,
   type ListSitesResponse,
 } from "@rugby-au/contracts";
-import { createSiteService } from "@/services/site/site.service";
+import { createSiteService } from "@/services/site.service";
 
 export const ListSiteSchema: RouteSchema = {
   description: "List all sites with their page counts",

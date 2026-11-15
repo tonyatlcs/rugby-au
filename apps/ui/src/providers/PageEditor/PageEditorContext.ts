@@ -1,12 +1,9 @@
 "use client";
 
-import { PageInformation } from "@/lib/server/schemas/page.schema";
+import type { PageResponse } from "@/lib/server/pages/retrieve-page/retrieve-page.schema";
 import { createContext } from "react";
 
-export interface PageEditorContextProps {
-  selectedPage: PageInformation | null;
-  setSelectedPage: (page: PageInformation | null) => void;
-}
+export type PageEditorContextProps = PageResponse;
 
 export const PageEditorContext = createContext<PageEditorContextProps | null>(
   null,

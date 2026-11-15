@@ -7,7 +7,7 @@ import type { PageInformation } from "@/lib/server/schemas/page.schema";
 import { PageEntryRow } from "@/features/site/pages/SiteEditorPage/components/PageEntryRow/PageEntryRow";
 import { EmptyPageBanner } from "@/features/site/pages/SiteEditorPage/components/EmptyPageBanner/EmptyPageBanner";
 import styles from "@/features/site/pages/SiteEditorPage/components/PageStructureSection/PageStructureSection.module.scss";
-import { usePageEditorManager } from "@/providers/PageEditor";
+import { useSiteEditorManager } from "@/providers/SiteEditor";
 
 interface PageStructureSectionProps {
   pageCount: number;
@@ -18,7 +18,7 @@ export const PageStructureSection: React.FC<PageStructureSectionProps> = ({
   pageCount,
   pageList,
 }) => {
-  const { selectedPage, setSelectedPage } = usePageEditorManager();
+  const { selectedPage, setSelectedPage } = useSiteEditorManager();
   const renderSectionContents = () => {
     if (pageList.length === 0) {
       return <EmptyPageBanner />;

@@ -1,13 +1,23 @@
 import { modelOptions, prop, Severity, type Ref } from "@typegoose/typegoose";
 import { randomUUID } from "node:crypto";
 import { SiteModel } from "@/models/site.model";
+import type { CardGridComponent, SectionComponent } from "@rugby-au/contracts";
 
-export type ComponentNode = {
+type StoredSection = {
   _id: string;
-  type: string;
-  props: Record<string, unknown>;
+  type: "section";
+  props: SectionComponent["props"];
   children?: ComponentNode[];
 };
+
+type StoredCardGrid = {
+  _id: string;
+  type: "card-grid";
+  props: CardGridComponent["props"];
+  children?: CardGridComponent["children"];
+};
+
+export type ComponentNode = StoredSection | StoredCardGrid;
 
 // Requires page paths to start with "/" (e.g. "/", "/about", "/teams/firsts").
 const pageRouteRegex = /^\//;

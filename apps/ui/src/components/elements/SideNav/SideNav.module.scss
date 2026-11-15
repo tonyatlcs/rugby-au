@@ -5,7 +5,14 @@
   flex-direction: column;
   flex-shrink: 0;
   min-height: 0;
-  border-right: 1px solid var(--color-greyscale-100);
+
+  &.left {
+    border-right: 1px solid var(--color-greyscale-100);
+  }
+
+  &.right {
+    border-left: 1px solid var(--color-greyscale-100);
+  }
 
   .sections {
     display: flex;

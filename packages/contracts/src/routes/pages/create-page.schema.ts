@@ -1,4 +1,3 @@
-import { PageSchema } from "@/common/page.schema.js";
 import { Type, type Static } from "@sinclair/typebox";
 
 export const CreatePageRequestSchema = Type.Object({
