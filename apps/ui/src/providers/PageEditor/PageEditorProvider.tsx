@@ -10,6 +10,7 @@ import { useState, type ReactNode } from "react";
 import type { ComponentNode, SectionComponent } from "@rugby-au/contracts";
 import {
   findComponent,
+  deleteComponentFromTree,
   updateSectionInTree,
   type SectionUpdates,
 } from "@/lib/utils/component-tree-utils";
@@ -68,6 +69,19 @@ export const PageEditorProvider: React.FC<PageEditorProviderProps> = ({
     );
   };
 
+  const deleteComponent = (id: string) => {
+    const deletedComponent = findComponent(componentTree, id);
+    const removesSelection = selectedComponentId !== null && deletedComponent !== null && (
+      deletedComponent.id === selectedComponentId ||
+      (deletedComponent.type === "section" && findComponent(deletedComponent.children, selectedComponentId) !== null)
+    );
+    setComponentTree((currentTree) => deleteComponentFromTree(currentTree, id));
+    if (removesSelection) {
+      setSelectedComponentId(null);
+      setPageEditorRightPanelView("empty");
+    }
+  };
+
   return (
     <PageEditorContext.Provider
       value={{
@@ -79,6 +93,7 @@ export const PageEditorProvider: React.FC<PageEditorProviderProps> = ({
         selectedComponentId,
         selectComponent,
         updateSection,
+        deleteComponent,
         pageEditorLeftPanelView,
         setPageEditorLeftPanelView,
         pageEditorRightPanelView,

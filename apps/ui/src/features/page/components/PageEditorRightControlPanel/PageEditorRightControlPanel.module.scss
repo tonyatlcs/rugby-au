@@ -1,0 +1,11 @@
+.footer {
+  padding: var(--spacing-16);
+
+  button {
+    background: var(--color-alert-50);
+    color: var(--color-alert-700);
+
+    &:hover { background: var(--color-alert-100); }
+    &:focus-visible { outline: 2px solid var(--color-alert-700); outline-offset: 2px; }
+  }
+}

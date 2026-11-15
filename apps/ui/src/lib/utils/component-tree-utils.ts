@@ -57,3 +57,16 @@ export const updateSectionInTree = (
       children: updateSectionInTree(node.children, id, updates),
     };
   });
+
+/** Removes a component and its descendants from the tree by ID. */
+export const deleteComponentFromTree = (
+  nodes: ComponentNode[],
+  id: string,
+): ComponentNode[] =>
+  nodes
+    .filter((node) => node.id !== id)
+    .map((node) =>
+      node.type === "section"
+        ? { ...node, children: deleteComponentFromTree(node.children, id) }
+        : node,
+    );

@@ -24,6 +24,7 @@ export type PageEditorContextProps = PageResponse & {
   addNewSection: () => void;
   selectComponent: (component: ComponentNode) => void;
   updateSection: (id: string, updates: SectionUpdates) => void;
+  deleteComponent: (id: string) => void;
 };
 
 export const PageEditorContext = createContext<PageEditorContextProps | null>(
