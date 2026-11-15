@@ -125,7 +125,7 @@ In the editor, [`PageEditorProvider`](apps/ui/src/providers/PageEditor/PageEdito
 1. Define its properties and add its type to the shared schemas in `packages/contracts/src/routes/pages/common/` and `packages/contracts/src/common/page.schema.ts`.
 2. Add its stored shape in `apps/api/src/models/page.model.ts`, and update the conversions in `apps/api/src/services/page.service.ts` and `apps/api/src/dto/transform-retrieve-page-response.dto.ts` so it can be saved and read.
 3. Create its React component in `apps/ui/src/components/elements/` and render it in `apps/ui/src/features/page/components/ComponentTree/ComponentTree.tsx`.
-4. Add defaults, selection and editing support in `apps/ui/src/providers/PageEditor/` and the page editor's component and configuration panels. Update tree utilities where the new type needs different nesting or editing behavior.
+4. Register the component in the editor, supply its defaults, and pass its props schema to `ComponentPropsEditor`. The shared form renders strings, string literal unions, objects, optional fields and arrays from the schema, so these props do not need a new hand-written form. Use schema `title` and `default` options for labels and initial values. Pass optional form configuration for editor-only behaviour such as hidden identifiers, generated IDs, list labels and visual choice controls. Extend `ComponentPropsEditor` when a new schema shape needs a new control. Update tree utilities where the new type needs different nesting or editing behavior.
 5. Run `pnpm check`, then add and edit the component in the UI to verify it saves and reloads.
 
 During development, run `pnpm --filter @rugby-au/contracts dev` in another terminal to rebuild shared contracts when they change; restart an app if it does not pick up the changes.
@@ -134,7 +134,7 @@ During development, run `pnpm --filter @rugby-au/contracts dev` in another termi
 
 - **Separate Fastify backend:** Multiple systems may need the same site and page data. A separate API gives them a common way to access it without tying data access to the Next.js client. This makes frontend and backend requirements easier to change independently, but adds a service to run and maintain.
   
-- **Shared contracts:** The UI and API use the same schemas and TypeScript types, reducing duplication. Changes to the contracts require rebuilding the shared package and may require updates in both apps.
+- **Shared contracts:** The UI and API use the same schemas and TypeScript types, reducing duplication. The editor generates prop fields from the schemas using a small supported JSON Schema subset. A new field using an unsupported shape requires extending the shared form renderer. Changes to the contracts require rebuilding the shared package and may require updates in both apps.
 
 - **Component trees in MongoDB:** Pages store nested sections and card grids as data, so their layout and content can be edited. Adding a new component type requires changes across the schema, API and editor.
 

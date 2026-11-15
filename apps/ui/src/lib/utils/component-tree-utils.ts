@@ -4,10 +4,10 @@ import type {
   SectionComponent,
 } from "@rugby-au/contracts";
 
-/** Fields to update on a section. Props are merged shallowly; children replace the existing array. */
+/** Fields to update on a section. Props and children replace the existing values. */
 export type SectionUpdates = {
   name?: string;
-  props?: Partial<SectionComponent["props"]>;
+  props?: SectionComponent["props"];
   children?: SectionComponent["children"];
 };
 
@@ -63,8 +63,8 @@ export const findComponent = (
 
 /**
  * Returns a new tree with nodes matching both the ID and change type updated.
- * Props are merged shallowly. Section children, when supplied, replace the
- * existing children; a card grid's title also updates its node name. A matched
+ * Section props and children, when supplied, replace the existing values;
+ * a card grid's title also updates its node name. A matched
  * section's descendants are not searched for further matches.
  *
  * @param nodes - Root nodes to update.
@@ -86,7 +86,7 @@ export const updateNodeInTree = (
       return {
         ...node,
         name: change.updates.name ?? node.name,
-        props: { ...node.props, ...change.updates.props },
+        props: change.updates.props ?? node.props,
         children: change.updates.children ?? node.children,
       };
     }

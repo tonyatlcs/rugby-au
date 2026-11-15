@@ -27,6 +27,7 @@ export interface ButtonProps {
   startAdornment?: ReactNode
   endAdornment?: ReactNode
   className?: string
+  containerClassName?: string
   alignment?: 'left' | 'center' | 'right'
 }
 
@@ -52,11 +53,12 @@ export const Button: React.FC<ButtonProps> = ({
   fullWidth,
   width,
   className,
+  containerClassName,
   alignment = 'center',
 }) => {
   return (
     <button
-      className={clsx(styles.container, {
+      className={clsx(styles.container, containerClassName, {
         [styles.small]: buttonSize === 'small',
         [styles.medium]: buttonSize === 'medium',
         [styles.large]: buttonSize === 'large',
