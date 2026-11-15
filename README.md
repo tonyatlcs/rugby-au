@@ -18,6 +18,22 @@ pnpm install
 cp apps/api/.env.example apps/api/.env
 ```
 
+If you don't have MongoDB installed, on macOS you can install and start MongoDB
+Community Edition using [Homebrew](https://brew.sh/):
+
+```bash
+brew tap mongodb/brew
+brew install mongodb-community@8.0
+brew services start mongodb-community@8.0
+```
+
+Check the service with `brew services list` and stop it when needed with
+`brew services stop mongodb-community@8.0`. The example URI connects to the
+local instance and uses the `rugby_au_dev` database, which MongoDB creates when
+data is first written. For other operating systems, follow MongoDB's installation
+instructions for [Linux](https://www.mongodb.com/docs/manual/administration/install-community-linux/)
+or [Windows](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/).
+
 Set `MONGODB_URI` in `apps/api/.env` if your MongoDB address differs from the example. Then create the collections and seed the sites:
 
 ```bash
