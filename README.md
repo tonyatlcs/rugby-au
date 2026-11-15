@@ -80,17 +80,25 @@ For example, this is a page document (timestamps are MongoDB dates, shown here a
       "props": { "headerLabel": "Welcome", "layout": "full", "themeType": "none" },
       "children": [
         {
-          "_id": "grid-1",
-          "name": "News",
-          "type": "card-grid",
-          "props": {
-            "id": "grid-1",
-            "title": "News",
-            "cards": [
-              { "id": "card-1", "variant": "icon", "heading": "Latest news" }
-            ]
-          },
-          "children": []
+          "_id": "section-2",
+          "name": "Latest updates",
+          "type": "section",
+          "props": { "headerLabel": "Latest updates", "layout": "full", "themeType": "none" },
+          "children": [
+            {
+              "_id": "grid-1",
+              "name": "News",
+              "type": "card-grid",
+              "props": {
+                "id": "grid-1",
+                "title": "News",
+                "cards": [
+                  { "id": "card-1", "variant": "icon", "heading": "Latest news" }
+                ]
+              },
+              "children": []
+            }
+          ]
         }
       ]
     }
