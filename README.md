@@ -86,7 +86,7 @@ For example, this is a page document (timestamps are MongoDB dates, shown here a
 
 Use a real site `_id` for `siteId`. The API represents component `_id` as `id`, returns the full site in place of `siteId`, and represents a missing parent as an empty string. The supported component shapes are defined in [`component-node.schema.ts`](packages/contracts/src/routes/pages/common/component-node.schema.ts), with section and card properties in the adjacent schema files.
 
-## Add a component type
+## Adding a new component
 
 1. Define its properties and add its type to the shared schemas in `packages/contracts/src/routes/pages/common/` and `packages/contracts/src/common/page.schema.ts`.
 2. Add its stored shape in `apps/api/src/models/page.model.ts`, and update the conversions in `apps/api/src/services/page.service.ts` and `apps/api/src/dto/transform-retrieve-page-response.dto.ts` so it can be saved and read.
