@@ -95,3 +95,19 @@ Use a real site `_id` for `siteId`. The API represents component `_id` as `id`, 
 5. Run `pnpm check`, then add and edit the component in the UI to verify it saves and reloads.
 
 During development, run `pnpm --filter @rugby-au/contracts dev` in another terminal to rebuild shared contracts when they change; restart an app if it does not pick up the changes.
+
+## Decisions and trade-offs
+
+- **Separate Fastify backend:** Multiple systems may need the same site and page data. A separate API gives them a common way to access it without tying data access to the Next.js client. This makes frontend and backend requirements easier to change independently, but adds a service to run and maintain.
+  
+- **Shared contracts:** The UI and API use the same schemas and TypeScript types, reducing duplication. Changes to the contracts require rebuilding the shared package and may require updates in both apps.
+
+- **Component trees in MongoDB:** Pages store nested sections and card grids as data, so their layout and content can be edited. Adding a new component type requires changes across the schema, API and editor.
+
+- **Separate sites, shared builder:** Each site has its own pages and theme while using the same editor and components. This keeps the demo small, but limits site-specific behavior to what the shared builder supports.
+- **Migration-based seed data:** A fresh database gets two sites and example home pages. Existing home pages are preserved; the seed does not refresh their content on later runs.
+
+## Time and AI tools
+
+- **Time spent:** A little over one working day (roughly 8–10 hours).
+- **AI tools:** OpenAI Codex was used to help with implementation and documentation.
